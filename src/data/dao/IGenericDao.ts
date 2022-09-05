@@ -3,5 +3,5 @@ export interface IGenericDao<T> {
     update: (id: string, model: T) => Promise<boolean>;
     delete: (id: string) => Promise<boolean>;
     getAll: () => Promise<T[]>;
-    getById: (id: string) => Promise<T>;
+    getById: (id: string) => Promise<T | null>;
 }

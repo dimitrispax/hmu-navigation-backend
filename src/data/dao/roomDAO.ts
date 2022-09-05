@@ -1,4 +1,5 @@
 import { PrismaClient, room } from '@prisma/client'
+import { Error500 } from '../../config/Errors/models/error500';
 import { IGenericDao } from './IGenericDao';
 
 const prisma = new PrismaClient()
@@ -10,9 +11,9 @@ export class roomDAO implements IGenericDao<room> {
     /************************* NOT IN USE *************************/
     /**************************************************************/
 
-    create: (model: room) => Promise<room>;
-    update: (id: string, model: room) => Promise<boolean>;
-    delete: (id: string) => Promise<boolean>;
+    async create(model: room): Promise<room> { throw new Error500("Not implemeted", null); };
+    async update(id: string, model: room): Promise<boolean> { throw new Error500("Not implemeted", null); };
+    async delete(id: string): Promise<boolean> { throw new Error500("Not implemeted", null); };
 
 
     /**************************************************************/
@@ -25,7 +26,7 @@ export class roomDAO implements IGenericDao<room> {
     }
 
     /* Get room by ID */
-    async getById(id: string): Promise<room> {
+    async getById(id: string): Promise<room | null> {
         return prisma.room.findUnique({ where: { id: id } })
     }
 

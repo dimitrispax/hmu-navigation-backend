@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build:code": "tsc",
-    "build": "npm run build:code && npm run build:version",
+    "build": "npm run build:code",
     "start": "node ./dist/app.js",
     "start:prod": "node ./dist/app.js",
     "start:dev": "npm run build && npm run start:prod",
-    "start:watch": "nodemon",
+    "start:watch": "nodemon app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "ts-node": "^10.9.1"
   }
 }

@@ -5,8 +5,9 @@ import { ILogger } from './Loggers/ILogger';
 
 class DebugLogHandler implements ILoggingHandler {
 
-    constructor(logger: ILogger) {
+    constructor(logger: ILogger, nextHandler: ILoggingHandler | null = null) {
         this.logger = logger;
+        this.nextHandler = nextHandler;
     }
 
     nextHandler: ILoggingHandler | null;

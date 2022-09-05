@@ -3,7 +3,7 @@ import LogLevels from './Levels/levelsEnum';
 
 abstract class ErrorHandler implements IErrorHandler {
 
-    protected nextHandler: IErrorHandler | null;
+    protected nextHandler?: IErrorHandler | null;
 
     setNextHandler(handler: IErrorHandler | null): void {
         this.nextHandler = handler;

@@ -11,8 +11,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.roomDAO = void 0;
 const client_1 = require("@prisma/client");
+const error500_1 = require("../../config/Errors/models/error500");
 const prisma = new client_1.PrismaClient();
 class roomDAO {
+    /**************************************************************/
+    /************************* NOT IN USE *************************/
+    /**************************************************************/
+    create(model) {
+        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
+    }
+    ;
+    update(id, model) {
+        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
+    }
+    ;
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
+    }
+    ;
     /**************************************************************/
     /**************************** READ ****************************/
     /**************************************************************/

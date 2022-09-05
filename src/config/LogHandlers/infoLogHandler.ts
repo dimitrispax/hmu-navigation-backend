@@ -4,11 +4,12 @@ import { ILogger } from './Loggers/ILogger';
 
 class InfoLogHandler implements ILoggingHandler {
 
-    nextHandler: ILoggingHandler;
+    nextHandler: ILoggingHandler | null;
     logger: ILogger;
 
-    constructor(logger: ILogger) {
+    constructor(logger: ILogger, nextHandler: ILoggingHandler | null = null) {
         this.logger = logger;
+        this.nextHandler = nextHandler;
     }
 
     setNextHandler(handler: ILoggingHandler): void {

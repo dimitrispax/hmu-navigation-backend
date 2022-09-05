@@ -1,7 +1,15 @@
-
-const express = require('express');
-const middleware = require('../../../middlewares/middliware');
-const controller = require('../../controllers/controllers');
+import express from 'express';
+import { middleware } from "../../../middlewares/middleware";
+import { getAllRooms } from "../../controllers/controllers";
 const router = express.Router();
 
-router.get('/allRooms', middleware, controller.getAllRooms);
+/* INDEX ROUTE */
+router.get('/', (req, res) => {
+    res.send("INDEX");
+})
+
+/* GET ALL ROOMS */
+router.get('/rooms', middleware, getAllRooms)
+
+
+export default router;  

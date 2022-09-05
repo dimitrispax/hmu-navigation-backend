@@ -9,8 +9,9 @@ class WarningLogHandler implements ILoggingHandler {
     nextHandler: ILoggingHandler | null;
     logger: ILogger;
 
-    constructor(logger: ILogger) {
+    constructor(logger: ILogger, nextHandler: ILoggingHandler | null = null) {
         this.logger = logger;
+        this.nextHandler = nextHandler;
     }
 
     setNextHandler(handler: ILoggingHandler | null): void {

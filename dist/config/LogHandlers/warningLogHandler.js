@@ -5,8 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const levelsEnum_1 = __importDefault(require("./Levels/levelsEnum"));
 class WarningLogHandler {
-    constructor(logger) {
+    constructor(logger, nextHandler = null) {
         this.logger = logger;
+        this.nextHandler = nextHandler;
     }
     setNextHandler(handler) {
         this.nextHandler = handler;

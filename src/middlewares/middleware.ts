@@ -1,0 +1,4 @@
+export const middleware = (req: any, res: any, next: any) => {
+    //calls services or use cases
+    next();
+}

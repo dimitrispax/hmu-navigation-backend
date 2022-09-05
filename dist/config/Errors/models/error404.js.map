@@ -1,0 +1,1 @@
+{"version":3,"file":"error404.js","sourceRoot":"","sources":["../../../../src/config/Errors/models/error404.ts"],"names":[],"mappings":";;;AAAA,+DAA4D;AAC5D,2CAAwC;AAExC,MAAa,QAAS,SAAQ,qBAAS;IACnC,YACI,IAAY,EACZ,UAAe,EACf,OAAO,GAAG,YAAY,EACtB,UAAU,GAAG,+BAAc,CAAC,SAAS;QAGrC,KAAK,CAAC,IAAI,EAAE,UAAU,EAAE,OAAO,EAAE,UAAU,CAAC,CAAA;IAChD,CAAC;CACJ;AAVD,4BAUC"}
