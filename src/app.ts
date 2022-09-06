@@ -4,9 +4,16 @@ const port = process.env.PORT || 3000;
 
 //routers
 
-import router from "./presenter/routes/v1/routes";
+import roomRoutes from "./presenter/routes/v1/rooomRoutes";
 
-app.use('/', router);
+/* ROUTES */
+app.use('/rooms', roomRoutes)
+
+/* ROOT ROUTE */
+app.get('/', async (req, res) => {
+  return res.status(200).json(
+    { message: 'ROOT' })
+})
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

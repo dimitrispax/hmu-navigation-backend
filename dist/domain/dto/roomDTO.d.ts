@@ -8,6 +8,6 @@ export default class roomDTO {
     camera: number;
     projector: number;
     capacity: number;
-    geodata: string;
+    geodata: JSON;
     constructor();
 }

@@ -7,3 +7,4 @@ export declare const getRoomsByProjector: (req: Request, res: Response, next: Ne
 export declare const getRoomsByManager: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 export declare const getRoomsByFloor: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 export declare const getRoomsByUsage: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const getRoomsByCapacity: (req: Request, res: Response, next: NextFunction) => Promise<void>;

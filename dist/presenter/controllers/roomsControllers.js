@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRoomsByUsage = exports.getRoomsByFloor = exports.getRoomsByManager = exports.getRoomsByProjector = exports.getRoomsByCamera = exports.getRoomsByDescription = exports.getRoomByID = exports.getAllRooms = void 0;
+exports.getRoomsByCapacity = exports.getRoomsByUsage = exports.getRoomsByFloor = exports.getRoomsByManager = exports.getRoomsByProjector = exports.getRoomsByCamera = exports.getRoomsByDescription = exports.getRoomByID = exports.getAllRooms = void 0;
 const error400_1 = require("../../config/Errors/models/error400");
 const error404_1 = require("../../config/Errors/models/error404");
 const roomDAO_1 = require("../../data/dao/roomDAO");
@@ -170,7 +170,6 @@ exports.getRoomsByFloor = getRoomsByFloor;
 const getRoomsByUsage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const roomUsageID = parseInt(req.params.roomUsageID);
-        console.log("roomUsage: ", roomUsageID);
         if (isNaN(roomUsageID)) {
             throw new error400_1.Error400('usageId field must be a number', null);
         }
@@ -192,4 +191,28 @@ const getRoomsByUsage = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getRoomsByUsage = getRoomsByUsage;
-//# sourceMappingURL=controllers.js.map
+const getRoomsByCapacity = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const roomCapacity = parseInt(req.params.roomCapacity);
+        if (isNaN(roomCapacity)) {
+            throw new error400_1.Error400('capacity field must be a number', null);
+        }
+        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
+        const rooms = yield roomsDAOCalls.getRoomsByCapacity(roomCapacity); // Get room by usage from DAO.
+        if ((rooms === null || rooms === void 0 ? void 0 : rooms.length) === 0) {
+            throw new error404_1.Error404(`There are not rooms that have more than ${roomCapacity} person capacity.`, null);
+        }
+        const DTORooms = rooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
+        res.status(200).json({
+            message: `Rooms with more than ${roomCapacity} person capacity.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        });
+    }
+    catch (err) {
+        console.log("error");
+        return next(err);
+    }
+});
+exports.getRoomsByCapacity = getRoomsByCapacity;
+//# sourceMappingURL=roomsControllers.js.map

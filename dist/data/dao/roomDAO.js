@@ -44,6 +44,48 @@ class roomDAO {
             return prisma.room.findUnique({ where: { id: id } });
         });
     }
+    /* Get room by description */
+    getRoomsByDescription(description) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { description: description } });
+        });
+    }
+    /* Get rooms by usage */
+    getRoomsByUsage(usageId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { usageId: usageId } });
+        });
+    }
+    /* Get rooms by manager */
+    getRoomsByManager(manager) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { manager: manager } });
+        });
+    }
+    /* Get rooms by camera */
+    getRoomsByCamera(camera) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { camera: camera } });
+        });
+    }
+    /* Get rooms by projector */
+    getRoomsByProjector(projector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { projector: projector } });
+        });
+    }
+    /* Get rooms by usage */
+    getRoomsByFloor(floorId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { floorId: floorId } });
+        });
+    }
+    /* Get rooms by capacity */
+    getRoomsByCapacity(capacity) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { capacity: { gte: capacity } } });
+        });
+    }
 }
 exports.roomDAO = roomDAO;
 //# sourceMappingURL=roomDAO.js.map

@@ -12,4 +12,11 @@ export declare class roomDAO implements IGenericDao<room> {
     /**************************************************************/
     getAll(): Promise<room[]>;
     getById(id: string): Promise<room | null>;
+    getRoomsByDescription(description: string): Promise<room[]>;
+    getRoomsByUsage(usageId: number): Promise<room[]>;
+    getRoomsByManager(manager: string): Promise<room[]>;
+    getRoomsByCamera(camera: number): Promise<room[]>;
+    getRoomsByProjector(projector: number): Promise<room[]>;
+    getRoomsByFloor(floorId: string): Promise<room[]>;
+    getRoomsByCapacity(capacity: number): Promise<room[]>;
 }

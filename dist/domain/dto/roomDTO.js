@@ -11,7 +11,7 @@ class roomDTO {
         this.camera = 0;
         this.projector = 0;
         this.capacity = 0;
-        this.geodata = "";
+        this.geodata = JSON;
     }
 }
 exports.default = roomDTO;

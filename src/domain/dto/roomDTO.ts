@@ -18,7 +18,7 @@ export default class roomDTO {
 
     capacity: number
 
-    geodata: string
+    geodata: JSON
 
     constructor() {
         this.id = ""
@@ -30,6 +30,6 @@ export default class roomDTO {
         this.camera = 0
         this.projector = 0
         this.capacity = 0
-        this.geodata = ""
+        this.geodata = JSON
     }
 }
