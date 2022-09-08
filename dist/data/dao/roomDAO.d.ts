@@ -18,6 +18,10 @@ export declare class roomDAO implements IGenericDao<Room> {
     getRoomsByProjector(projector: number): Promise<Room[]>;
     getRoomsByFloor(floorId: string): Promise<Room[]>;
     getRoomsByCapacity(capacity: number): Promise<Room[]>;
+    getRoomsByUsageAndCapacity(usageId: number, capacity: number): Promise<Room[]>;
+    getRoomsByUsageAndCapacityAndCamera(usageId: number, capacity: number): Promise<Room[]>;
+    getRoomsByUsageAndCapacityAndProjector(usageId: number, capacity: number): Promise<Room[]>;
+    getRoomsByCapacityAndCameraAndProjector(capacity: number): Promise<Room[]>;
     /**************************************************************/
     /*************************** UPDATE ***************************/
     /**************************************************************/

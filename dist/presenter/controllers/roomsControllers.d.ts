@@ -12,6 +12,13 @@ export declare const getRoomsByFloor: (req: Request, res: Response, next: NextFu
 export declare const getRoomsByUsage: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 export declare const getRoomsByCapacity: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 /**************************************************************/
+/********************* COMPLEX GET QUERIES ********************/
+/**************************************************************/
+export declare const getRoomsByCapacityAndCameraAndProjector: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const getRoomsByUsageAndCapacity: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const getRoomsByUsageAndCapacityAndCamera: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const getRoomsByUsageAndCapacityAndProjector: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+/**************************************************************/
 /*************************** UPDATE ***************************/
 /**************************************************************/
 export declare const updateRoom: (req: Request, res: Response, next: NextFunction) => Promise<void>;

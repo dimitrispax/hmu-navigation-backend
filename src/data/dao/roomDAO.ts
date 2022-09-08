@@ -65,6 +65,27 @@ export class roomDAO implements IGenericDao<Room> {
         return prisma.room.findMany({ where: { capacity: { gte: capacity } } })
     }
 
+    /* Get rooms with certain usage and fit more than an amount of persons(capacity) */
+    async getRoomsByUsageAndCapacity(usageId: number, capacity: number): Promise<Room[]> {
+        return prisma.room.findMany({ where: { capacity: { gte: capacity }, usageId: usageId } })
+    }
+
+    /* Get rooms with certain usage and fit more than an amount of persons(capacity) as well if the room has a camera */
+    async getRoomsByUsageAndCapacityAndCamera(usageId: number, capacity: number): Promise<Room[]> {
+        return prisma.room.findMany({ where: { capacity: { gte: capacity }, usageId: usageId, camera: 1 } })
+    }
+
+    /* Get rooms with certain usage and fit more than an amount of persons(capacity) as well if the room has a projector */
+    async getRoomsByUsageAndCapacityAndProjector(usageId: number, capacity: number): Promise<Room[]> {
+        return prisma.room.findMany({ where: { capacity: { gte: capacity }, usageId: usageId, projector: 1 } })
+    }
+
+    /* Get rooms that fit more than an amount of persons(capacity) and they have camera and projector*/
+    async getRoomsByCapacityAndCameraAndProjector(capacity: number): Promise<Room[]> {
+        return prisma.room.findMany({ where: { capacity: { gte: capacity }, camera: 1, projector: 1 } })
+    }
+
+
 
     /**************************************************************/
     /*************************** UPDATE ***************************/

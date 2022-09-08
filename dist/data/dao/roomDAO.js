@@ -82,6 +82,30 @@ class roomDAO {
             return prisma.room.findMany({ where: { capacity: { gte: capacity } } });
         });
     }
+    /* Get rooms with certain usage and fit more than an amount of persons(capacity) */
+    getRoomsByUsageAndCapacity(usageId, capacity) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { capacity: { gte: capacity }, usageId: usageId } });
+        });
+    }
+    /* Get rooms with certain usage and fit more than an amount of persons(capacity) as well if the room has a camera */
+    getRoomsByUsageAndCapacityAndCamera(usageId, capacity) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { capacity: { gte: capacity }, usageId: usageId, camera: 1 } });
+        });
+    }
+    /* Get rooms with certain usage and fit more than an amount of persons(capacity) as well if the room has a projector */
+    getRoomsByUsageAndCapacityAndProjector(usageId, capacity) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { capacity: { gte: capacity }, usageId: usageId, projector: 1 } });
+        });
+    }
+    /* Get rooms that fit more than an amount of persons(capacity) and they have camera and projector*/
+    getRoomsByCapacityAndCameraAndProjector(capacity) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.findMany({ where: { capacity: { gte: capacity }, camera: 1, projector: 1 } });
+        });
+    }
     /**************************************************************/
     /*************************** UPDATE ***************************/
     /**************************************************************/

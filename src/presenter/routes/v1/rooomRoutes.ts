@@ -1,6 +1,6 @@
 import express from 'express';
 import { middleware } from "../../../middlewares/middleware";
-import { getAllRooms, getRoomByID, getRoomsByCamera, getRoomsByCapacity, getRoomsByDescription, getRoomsByFloor, getRoomsByManager, getRoomsByProjector, getRoomsByUsage, updateRoom } from "../../controllers/roomsControllers";
+import { getAllRooms, getRoomByID, getRoomsByCamera, getRoomsByCapacity, getRoomsByCapacityAndCameraAndProjector, getRoomsByDescription, getRoomsByFloor, getRoomsByManager, getRoomsByProjector, getRoomsByUsage, getRoomsByUsageAndCapacity, getRoomsByUsageAndCapacityAndCamera, getRoomsByUsageAndCapacityAndProjector, updateRoom } from "../../controllers/roomsControllers";
 const router = express.Router();
 
 /* INDEX ROUTE */
@@ -37,12 +37,32 @@ router.get('/floor/:roomFloor', middleware, getRoomsByFloor);
 router.get('/usageID/:roomUsageID', middleware, getRoomsByUsage);
 
 /* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS */
-router.get('/fit-more-than/:roomCapacity', middleware, getRoomsByCapacity);
+router.get('/have-capacity-of/:roomCapacity', middleware, getRoomsByCapacity);
+
+
+
+/**************************************************************/
+/********************* COMPLEX GET QUERIES ********************/
+/**************************************************************/
+
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS, HAVE A CAMERA AND PROJECTOR */
+router.get('/have-capacity-of/:roomCapacity/have-camera/have-projector', middleware, getRoomsByCapacityAndCameraAndProjector);
+
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS AND HAVE A CERTAIN USAGE */
+router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity', middleware, getRoomsByUsageAndCapacity);
+
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS, HAVE A CERTAIN USAGE, HAVE A CAMERA */
+router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity/have-camera', middleware, getRoomsByUsageAndCapacityAndCamera);
+
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS, HAVE A CERTAIN USAGE, HAVE A PROJECTOR */
+router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity/have-projector', middleware, getRoomsByUsageAndCapacityAndProjector);
+
 
 
 /**************************************************************/
 /*************************** UPDATE ***************************/
 /**************************************************************/
+
 const bodyParser = require('body-parser').json();
 router.patch('/update/:roomID', bodyParser, updateRoom)
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateRoom = exports.getRoomsByCapacity = exports.getRoomsByUsage = exports.getRoomsByFloor = exports.getRoomsByManager = exports.getRoomsByProjector = exports.getRoomsByCamera = exports.getRoomsByDescription = exports.getRoomByID = exports.getAllRooms = void 0;
+exports.updateRoom = exports.getRoomsByUsageAndCapacityAndProjector = exports.getRoomsByUsageAndCapacityAndCamera = exports.getRoomsByUsageAndCapacity = exports.getRoomsByCapacityAndCameraAndProjector = exports.getRoomsByCapacity = exports.getRoomsByUsage = exports.getRoomsByFloor = exports.getRoomsByManager = exports.getRoomsByProjector = exports.getRoomsByCamera = exports.getRoomsByDescription = exports.getRoomByID = exports.getAllRooms = void 0;
 const error400_1 = require("../../config/Errors/models/error400");
 const error404_1 = require("../../config/Errors/models/error404");
 const roomDAO_1 = require("../../data/dao/roomDAO");
@@ -207,7 +207,7 @@ const getRoomsByCapacity = (req, res, next) => __awaiter(void 0, void 0, void 0,
         }
         const DTORooms = rooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
         res.status(200).json({
-            message: `Rooms with more than ${roomCapacity} person capacity.`,
+            message: `Rooms with capacity for ${roomCapacity} persons.`,
             count: DTORooms.length,
             rooms: DTORooms
         });
@@ -218,6 +218,117 @@ const getRoomsByCapacity = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.getRoomsByCapacity = getRoomsByCapacity;
+/**************************************************************/
+/********************* COMPLEX GET QUERIES ********************/
+/**************************************************************/
+const getRoomsByCapacityAndCameraAndProjector = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const roomCapacity = parseInt(req.params.roomCapacity);
+        if (isNaN(roomCapacity)) {
+            throw new error400_1.Error400('capacity field must be a number', null);
+        }
+        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
+        const rooms = yield roomsDAOCalls.getRoomsByCapacityAndCameraAndProjector(roomCapacity); // Get room by usage from DAO.
+        if ((rooms === null || rooms === void 0 ? void 0 : rooms.length) === 0) {
+            throw new error404_1.Error404(`There are not rooms that have more than ${roomCapacity} person capacity that have a camera and a projector.`, null);
+        }
+        const DTORooms = rooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
+        res.status(200).json({
+            message: `Rooms with capacity for ${roomCapacity} persons that have a camera and a projector.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        });
+    }
+    catch (err) {
+        console.log("ERROR");
+        return next(err);
+    }
+});
+exports.getRoomsByCapacityAndCameraAndProjector = getRoomsByCapacityAndCameraAndProjector;
+const getRoomsByUsageAndCapacity = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const roomUsageID = parseInt(req.params.roomUsageID);
+        const roomCapacity = parseInt(req.params.roomCapacity);
+        if (isNaN(roomUsageID)) {
+            throw new error400_1.Error400('usageId field must be a number', null);
+        }
+        if (isNaN(roomCapacity)) {
+            throw new error400_1.Error400('capacity field must be a number', null);
+        }
+        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
+        const rooms = yield roomsDAOCalls.getRoomsByUsageAndCapacity(roomUsageID, roomCapacity); // Get room by usage from DAO.
+        if ((rooms === null || rooms === void 0 ? void 0 : rooms.length) === 0) {
+            throw new error404_1.Error404(`There are not rooms that have ${roomUsageID} usage and fit more than ${roomCapacity} persons.`, null);
+        }
+        const DTORooms = rooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
+        res.status(200).json({
+            message: `Rooms with ${roomUsageID} usage and capacity for ${roomCapacity} persons.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        });
+    }
+    catch (err) {
+        console.log("ERROR");
+        return next(err);
+    }
+});
+exports.getRoomsByUsageAndCapacity = getRoomsByUsageAndCapacity;
+const getRoomsByUsageAndCapacityAndCamera = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const roomUsageID = parseInt(req.params.roomUsageID);
+        const roomCapacity = parseInt(req.params.roomCapacity);
+        if (isNaN(roomUsageID)) {
+            throw new error400_1.Error400('usageId field must be a number', null);
+        }
+        if (isNaN(roomCapacity)) {
+            throw new error400_1.Error400('capacity field must be a number', null);
+        }
+        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
+        const rooms = yield roomsDAOCalls.getRoomsByUsageAndCapacityAndCamera(roomUsageID, roomCapacity); // Get room by usage from DAO.
+        if ((rooms === null || rooms === void 0 ? void 0 : rooms.length) === 0) {
+            throw new error404_1.Error404(`There are not rooms that have ${roomUsageID} usage that fit more than ${roomCapacity} persons and have a camera.`, null);
+        }
+        const DTORooms = rooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
+        res.status(200).json({
+            message: `Rooms with ${roomUsageID} usage and capacity for ${roomCapacity} persons that have a camera.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        });
+    }
+    catch (err) {
+        console.log("ERROR");
+        return next(err);
+    }
+});
+exports.getRoomsByUsageAndCapacityAndCamera = getRoomsByUsageAndCapacityAndCamera;
+const getRoomsByUsageAndCapacityAndProjector = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const roomUsageID = parseInt(req.params.roomUsageID);
+        const roomCapacity = parseInt(req.params.roomCapacity);
+        if (isNaN(roomUsageID)) {
+            throw new error400_1.Error400('usageId field must be a number', null);
+        }
+        if (isNaN(roomCapacity)) {
+            throw new error400_1.Error400('capacity field must be a number', null);
+        }
+        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
+        const rooms = yield roomsDAOCalls.getRoomsByUsageAndCapacityAndProjector(roomUsageID, roomCapacity); // Get room by usage from DAO.
+        if ((rooms === null || rooms === void 0 ? void 0 : rooms.length) === 0) {
+            throw new error404_1.Error404(`There are not rooms that have ${roomUsageID} usage that fit more than ${roomCapacity} persons and have a projector.`, null);
+        }
+        const DTORooms = rooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
+        res.status(200).json({
+            message: `Rooms with ${roomUsageID} usage and capacity for ${roomCapacity} persons that have a projector.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        });
+    }
+    catch (err) {
+        console.log("ERROR");
+        return next(err);
+    }
+});
+exports.getRoomsByUsageAndCapacityAndProjector = getRoomsByUsageAndCapacityAndProjector;
 /**************************************************************/
 /*************************** UPDATE ***************************/
 /**************************************************************/

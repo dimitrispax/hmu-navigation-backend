@@ -202,7 +202,116 @@ export const getRoomsByCapacity = async (req: Request, res: Response, next: Next
         const DTORooms = rooms.map((room) => dtoMapper(room, new roomDTO()));        // Transforming objects with DTO.
 
         res.status(200).json({
-            message: `Rooms with more than ${roomCapacity} person capacity.`,
+            message: `Rooms with capacity for ${roomCapacity} persons.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        })
+    }
+    catch (err) {
+        console.log("ERROR")
+        return next(err)
+    }
+}
+
+/**************************************************************/
+/********************* COMPLEX GET QUERIES ********************/
+/**************************************************************/
+
+export const getRoomsByCapacityAndCameraAndProjector = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roomCapacity = parseInt(req.params.roomCapacity);
+
+        if (isNaN(roomCapacity)) { throw new Error400('capacity field must be a number', null) }
+
+        const roomsDAOCalls = new roomDAO();                                                     // Calling DAO.
+        const rooms = await roomsDAOCalls.getRoomsByCapacityAndCameraAndProjector(roomCapacity); // Get room by usage from DAO.
+
+        if (rooms?.length === 0) { throw new Error404(`There are not rooms that have more than ${roomCapacity} person capacity that have a camera and a projector.`, null) }
+        const DTORooms = rooms.map((room) => dtoMapper(room, new roomDTO()));                    // Transforming objects with DTO.
+
+        res.status(200).json({
+            message: `Rooms with capacity for ${roomCapacity} persons that have a camera and a projector.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        })
+    }
+    catch (err) {
+        console.log("ERROR")
+        return next(err)
+    }
+}
+
+export const getRoomsByUsageAndCapacity = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roomUsageID = parseInt(req.params.roomUsageID);
+        const roomCapacity = parseInt(req.params.roomCapacity);
+
+
+        if (isNaN(roomUsageID)) { throw new Error400('usageId field must be a number', null) }
+        if (isNaN(roomCapacity)) { throw new Error400('capacity field must be a number', null) }
+
+        const roomsDAOCalls = new roomDAO();                                                      // Calling DAO.
+        const rooms = await roomsDAOCalls.getRoomsByUsageAndCapacity(roomUsageID, roomCapacity);  // Get room by usage from DAO.
+
+        if (rooms?.length === 0) { throw new Error404(`There are not rooms that have ${roomUsageID} usage and fit more than ${roomCapacity} persons.`, null) }
+        const DTORooms = rooms.map((room) => dtoMapper(room, new roomDTO()));                     // Transforming objects with DTO.
+
+        res.status(200).json({
+            message: `Rooms with ${roomUsageID} usage and capacity for ${roomCapacity} persons.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        })
+    }
+    catch (err) {
+        console.log("ERROR")
+        return next(err)
+    }
+}
+
+export const getRoomsByUsageAndCapacityAndCamera = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roomUsageID = parseInt(req.params.roomUsageID);
+        const roomCapacity = parseInt(req.params.roomCapacity);
+
+
+        if (isNaN(roomUsageID)) { throw new Error400('usageId field must be a number', null) }
+        if (isNaN(roomCapacity)) { throw new Error400('capacity field must be a number', null) }
+
+        const roomsDAOCalls = new roomDAO();                                                               // Calling DAO.
+        const rooms = await roomsDAOCalls.getRoomsByUsageAndCapacityAndCamera(roomUsageID, roomCapacity);  // Get room by usage from DAO.
+
+        if (rooms?.length === 0) { throw new Error404(`There are not rooms that have ${roomUsageID} usage that fit more than ${roomCapacity} persons and have a camera.`, null) }
+        const DTORooms = rooms.map((room) => dtoMapper(room, new roomDTO()));                               // Transforming objects with DTO.
+
+        res.status(200).json({
+            message: `Rooms with ${roomUsageID} usage and capacity for ${roomCapacity} persons that have a camera.`,
+            count: DTORooms.length,
+            rooms: DTORooms
+        })
+    }
+    catch (err) {
+        console.log("ERROR")
+        return next(err)
+    }
+}
+
+export const getRoomsByUsageAndCapacityAndProjector = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roomUsageID = parseInt(req.params.roomUsageID);
+        const roomCapacity = parseInt(req.params.roomCapacity);
+
+
+        if (isNaN(roomUsageID)) { throw new Error400('usageId field must be a number', null) }
+        if (isNaN(roomCapacity)) { throw new Error400('capacity field must be a number', null) }
+
+        const roomsDAOCalls = new roomDAO();                                                                  // Calling DAO.
+        const rooms = await roomsDAOCalls.getRoomsByUsageAndCapacityAndProjector(roomUsageID, roomCapacity);  // Get room by usage from DAO.
+
+        if (rooms?.length === 0) { throw new Error404(`There are not rooms that have ${roomUsageID} usage that fit more than ${roomCapacity} persons and have a projector.`, null) }
+        const DTORooms = rooms.map((room) => dtoMapper(room, new roomDTO()));                                 // Transforming objects with DTO.
+
+        res.status(200).json({
+            message: `Rooms with ${roomUsageID} usage and capacity for ${roomCapacity} persons that have a projector.`,
             count: DTORooms.length,
             rooms: DTORooms
         })
@@ -224,7 +333,6 @@ export const updateRoom = async (req: Request, res: Response, next: NextFunction
         console.log("BUT MY BODY IS TELLING ME: ", req.body.camera)
         const { description, usageId, manager, computer, camera, projector, capacity } = req.body
 
-        console.log("test: ", !camera);
 
         /* Handling if user leaves an input field empty */
         if (!description) { throw new Error400("No 'description' given.", null) }
@@ -260,5 +368,3 @@ export const updateRoom = async (req: Request, res: Response, next: NextFunction
         return next(err)
     }
 }
-
-

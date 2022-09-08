@@ -31,7 +31,18 @@ router.get('/floor/:roomFloor', middleware_1.middleware, roomsControllers_1.getR
 /* GET ROOM BY USAGE */
 router.get('/usageID/:roomUsageID', middleware_1.middleware, roomsControllers_1.getRoomsByUsage);
 /* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS */
-router.get('/fit-more-than/:roomCapacity', middleware_1.middleware, roomsControllers_1.getRoomsByCapacity);
+router.get('/have-capacity-of/:roomCapacity', middleware_1.middleware, roomsControllers_1.getRoomsByCapacity);
+/**************************************************************/
+/********************* COMPLEX GET QUERIES ********************/
+/**************************************************************/
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS, HAVE A CAMERA AND PROJECTOR */
+router.get('/have-capacity-of/:roomCapacity/have-camera/have-projector', middleware_1.middleware, roomsControllers_1.getRoomsByCapacityAndCameraAndProjector);
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS AND HAVE A CERTAIN USAGE */
+router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity', middleware_1.middleware, roomsControllers_1.getRoomsByUsageAndCapacity);
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS, HAVE A CERTAIN USAGE, HAVE A CAMERA */
+router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity/have-camera', middleware_1.middleware, roomsControllers_1.getRoomsByUsageAndCapacityAndCamera);
+/* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS, HAVE A CERTAIN USAGE, HAVE A PROJECTOR */
+router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity/have-projector', middleware_1.middleware, roomsControllers_1.getRoomsByUsageAndCapacityAndProjector);
 /**************************************************************/
 /*************************** UPDATE ***************************/
 /**************************************************************/
