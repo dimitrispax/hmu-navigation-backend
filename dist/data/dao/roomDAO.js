@@ -21,10 +21,6 @@ class roomDAO {
         return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
     }
     ;
-    update(id, model) {
-        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
-    }
-    ;
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
     }
@@ -84,6 +80,25 @@ class roomDAO {
     getRoomsByCapacity(capacity) {
         return __awaiter(this, void 0, void 0, function* () {
             return prisma.room.findMany({ where: { capacity: { gte: capacity } } });
+        });
+    }
+    /**************************************************************/
+    /*************************** UPDATE ***************************/
+    /**************************************************************/
+    update(roomID, model) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return prisma.room.update({
+                where: { id: roomID },
+                data: {
+                    description: model === null || model === void 0 ? void 0 : model.description,
+                    usageId: model === null || model === void 0 ? void 0 : model.usageId,
+                    manager: model === null || model === void 0 ? void 0 : model.manager,
+                    computer: model === null || model === void 0 ? void 0 : model.computer,
+                    camera: model === null || model === void 0 ? void 0 : model.camera,
+                    projector: model === null || model === void 0 ? void 0 : model.projector,
+                    capacity: model === null || model === void 0 ? void 0 : model.capacity,
+                }
+            });
         });
     }
 }

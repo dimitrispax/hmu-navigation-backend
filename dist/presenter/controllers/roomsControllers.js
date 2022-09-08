@@ -12,13 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRoomsByCapacity = exports.getRoomsByUsage = exports.getRoomsByFloor = exports.getRoomsByManager = exports.getRoomsByProjector = exports.getRoomsByCamera = exports.getRoomsByDescription = exports.getRoomByID = exports.getAllRooms = void 0;
+exports.updateRoom = exports.getRoomsByCapacity = exports.getRoomsByUsage = exports.getRoomsByFloor = exports.getRoomsByManager = exports.getRoomsByProjector = exports.getRoomsByCamera = exports.getRoomsByDescription = exports.getRoomByID = exports.getAllRooms = void 0;
 const error400_1 = require("../../config/Errors/models/error400");
 const error404_1 = require("../../config/Errors/models/error404");
 const roomDAO_1 = require("../../data/dao/roomDAO");
 const roomDTO_1 = __importDefault(require("../../domain/dto/roomDTO"));
 const dtoMapper_1 = __importDefault(require("../../domain/utillities/dtoMapper"));
-/* CHANGE ANY TYPES TO SPECIFIC TYPES */
+/**************************************************************/
+/**************************** READ ****************************/
+/**************************************************************/
 const getAllRooms = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
@@ -32,7 +34,7 @@ const getAllRooms = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -45,13 +47,14 @@ const getRoomByID = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         if (!room) {
             throw new error404_1.Error404(`Room with id ${roomID} was not found.`, null);
         }
+        const DTORoom = (0, dtoMapper_1.default)(room, new roomDTO_1.default()); // Transforming objects with DTO.
         res.status(200).json({
             found: true,
-            room
+            room: DTORoom
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -71,7 +74,7 @@ const getRoomsByDescription = (req, res, next) => __awaiter(void 0, void 0, void
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -95,7 +98,7 @@ const getRoomsByCamera = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -119,7 +122,7 @@ const getRoomsByProjector = (req, res, next) => __awaiter(void 0, void 0, void 0
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -140,7 +143,7 @@ const getRoomsByManager = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -162,7 +165,7 @@ const getRoomsByFloor = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -186,7 +189,7 @@ const getRoomsByUsage = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
@@ -210,9 +213,67 @@ const getRoomsByCapacity = (req, res, next) => __awaiter(void 0, void 0, void 0,
         });
     }
     catch (err) {
-        console.log("error");
+        console.log("ERROR");
         return next(err);
     }
 });
 exports.getRoomsByCapacity = getRoomsByCapacity;
+/**************************************************************/
+/*************************** UPDATE ***************************/
+/**************************************************************/
+const updateRoom = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const roomID = req.params.roomID;
+        console.log("BUT MY BODY IS TELLING ME: ", req.body.camera);
+        const { description, usageId, manager, computer, camera, projector, capacity } = req.body;
+        console.log("test: ", !camera);
+        /* Handling if user leaves an input field empty */
+        if (!description) {
+            throw new error400_1.Error400("No 'description' given.", null);
+        }
+        if (!manager) {
+            throw new error400_1.Error400("No 'manager' given.", null);
+        }
+        if (!usageId) {
+            throw new error400_1.Error400("No 'usageId' given.", null);
+        }
+        if (!capacity) {
+            throw new error400_1.Error400("No 'capacity' given.", null);
+        }
+        /* Handling if user gives wrong input */
+        if (isNaN(usageId)) {
+            throw new error400_1.Error400('UsageID must be a number.', null);
+        }
+        if (isNaN(capacity)) {
+            throw new error400_1.Error400('Capacity must be a number.', null);
+        }
+        if (computer !== 0 && computer !== 1) {
+            throw new error400_1.Error400('Computer must be a boolean (0 or 1).', null);
+        }
+        if (camera !== 0 && computer !== 1) {
+            throw new error400_1.Error400('Camera must be a boolean (0 or 1).', null);
+        }
+        if (projector !== 0 && projector !== 1) {
+            throw new error400_1.Error400('Projector must be a boolean (0 or 1).', null);
+        }
+        /* Checking if the user given exists */
+        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
+        const room = yield roomsDAOCalls.getById(roomID); // Get room by usage from DAO
+        if (!room) {
+            throw new error404_1.Error404(`Room with id ${roomID} does not exist`, null);
+        }
+        /* Updating room data */
+        const updatedRoom = yield roomsDAOCalls.update(roomID, { description, usageId, manager, computer, camera, projector, capacity });
+        const DTORoom = (0, dtoMapper_1.default)(room, new roomDTO_1.default()); // Transforming object with DTO.
+        res.status(201).json({
+            message: `Room with id ${roomID} was updated.`,
+            room: DTORoom
+        });
+    }
+    catch (err) {
+        console.log("ERROR");
+        return next(err);
+    }
+});
+exports.updateRoom = updateRoom;
 //# sourceMappingURL=roomsControllers.js.map

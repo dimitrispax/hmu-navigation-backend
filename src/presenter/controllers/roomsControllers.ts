@@ -8,7 +8,10 @@ import dtoMapper from '../../domain/utillities/dtoMapper';
 
 
 
-/* CHANGE ANY TYPES TO SPECIFIC TYPES */
+/**************************************************************/
+/**************************** READ ****************************/
+/**************************************************************/
+
 export const getAllRooms = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const roomsDAOCalls = new roomDAO();                                        // Calling DAO.
@@ -22,7 +25,7 @@ export const getAllRooms = async (req: Request, res: Response, next: NextFunctio
             rooms: DTORooms
         })
     } catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -36,13 +39,15 @@ export const getRoomByID = async (req: Request, res: Response, next: NextFunctio
 
         if (!room) { throw new Error404(`Room with id ${roomID} was not found.`, null) }
 
+        const DTORoom = dtoMapper(room, new roomDTO());                             // Transforming objects with DTO.
+
         res.status(200).json({
             found: true,
-            room
+            room: DTORoom
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -63,7 +68,7 @@ export const getRoomsByDescription = async (req: Request, res: Response, next: N
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -86,7 +91,7 @@ export const getRoomsByCamera = async (req: Request, res: Response, next: NextFu
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -110,7 +115,7 @@ export const getRoomsByProjector = async (req: Request, res: Response, next: Nex
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -133,7 +138,7 @@ export const getRoomsByManager = async (req: Request, res: Response, next: NextF
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -155,7 +160,7 @@ export const getRoomsByFloor = async (req: Request, res: Response, next: NextFun
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -179,7 +184,7 @@ export const getRoomsByUsage = async (req: Request, res: Response, next: NextFun
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
         return next(err)
     }
 }
@@ -203,7 +208,55 @@ export const getRoomsByCapacity = async (req: Request, res: Response, next: Next
         })
     }
     catch (err) {
-        console.log("error")
+        console.log("ERROR")
+        return next(err)
+    }
+}
+
+
+/**************************************************************/
+/*************************** UPDATE ***************************/
+/**************************************************************/
+
+export const updateRoom = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roomID = req.params.roomID
+        console.log("BUT MY BODY IS TELLING ME: ", req.body.camera)
+        const { description, usageId, manager, computer, camera, projector, capacity } = req.body
+
+        console.log("test: ", !camera);
+
+        /* Handling if user leaves an input field empty */
+        if (!description) { throw new Error400("No 'description' given.", null) }
+        if (!manager) { throw new Error400("No 'manager' given.", null) }
+        if (!usageId) { throw new Error400("No 'usageId' given.", null) }
+        if (!capacity) { throw new Error400("No 'capacity' given.", null) }
+
+        /* Handling if user gives wrong input */
+        if (isNaN(usageId)) { throw new Error400('UsageID must be a number.', null) }
+        if (isNaN(capacity)) { throw new Error400('Capacity must be a number.', null) }
+        if (computer !== 0 && computer !== 1) { throw new Error400('Computer must be a boolean (0 or 1).', null) }
+        if (camera !== 0 && computer !== 1) { throw new Error400('Camera must be a boolean (0 or 1).', null) }
+        if (projector !== 0 && projector !== 1) { throw new Error400('Projector must be a boolean (0 or 1).', null) }
+
+
+        /* Checking if the user given exists */
+        const roomsDAOCalls = new roomDAO();                                                                               // Calling DAO.
+        const room = await roomsDAOCalls.getById(roomID);                                                                  // Get room by usage from DAO
+        if (!room) { throw new Error404(`Room with id ${roomID} does not exist`, null) }
+
+        /* Updating room data */
+        const updatedRoom = await roomsDAOCalls.update(roomID, { description, usageId, manager, computer, camera, projector, capacity })
+
+        const DTORoom = dtoMapper(room, new roomDTO());                                                                   // Transforming object with DTO.
+
+        res.status(201).json({
+            message: `Room with id ${roomID} was updated.`,
+            room: DTORoom
+        })
+    }
+    catch (err) {
+        console.log("ERROR")
         return next(err)
     }
 }

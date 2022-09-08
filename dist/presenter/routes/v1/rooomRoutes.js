@@ -32,5 +32,10 @@ router.get('/floor/:roomFloor', middleware_1.middleware, roomsControllers_1.getR
 router.get('/usageID/:roomUsageID', middleware_1.middleware, roomsControllers_1.getRoomsByUsage);
 /* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS */
 router.get('/fit-more-than/:roomCapacity', middleware_1.middleware, roomsControllers_1.getRoomsByCapacity);
+/**************************************************************/
+/*************************** UPDATE ***************************/
+/**************************************************************/
+const bodyParser = require('body-parser').json();
+router.patch('/update/:roomID', bodyParser, roomsControllers_1.updateRoom);
 exports.default = router;
 //# sourceMappingURL=rooomRoutes.js.map

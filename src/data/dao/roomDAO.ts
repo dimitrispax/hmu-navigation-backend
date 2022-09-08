@@ -5,14 +5,14 @@ import { Room } from '../models/room';
 
 const prisma = new PrismaClient()
 
-export class roomDAO implements IGenericDao<room> {
+export class roomDAO implements IGenericDao<Room> {
 
 
     /**************************************************************/
     /************************* NOT IN USE *************************/
     /**************************************************************/
 
-    async create(model: room): Promise<room> { throw new Error500("Not implemeted", null); };
+    async create(model: Room): Promise<Room> { throw new Error500("Not implemeted", null); };
     async delete(id: string): Promise<boolean> { throw new Error500("Not implemeted", null); };
 
 
@@ -21,47 +21,47 @@ export class roomDAO implements IGenericDao<room> {
     /**************************************************************/
 
     /* Get all rooms */
-    async getAll(): Promise<room[]> {
+    async getAll(): Promise<Room[]> {
         return prisma.room.findMany()
     }
 
     /* Get room by ID */
-    async getById(id: string): Promise<room | null> {
+    async getById(id: string): Promise<Room | null> {
         return prisma.room.findUnique({ where: { id: id } })
     }
 
     /* Get room by description */
-    async getRoomsByDescription(description: string): Promise<room[]> {
+    async getRoomsByDescription(description: string): Promise<Room[]> {
         return prisma.room.findMany({ where: { description: description } })
     }
 
     /* Get rooms by usage */
-    async getRoomsByUsage(usageId: number): Promise<room[]> {
+    async getRoomsByUsage(usageId: number): Promise<Room[]> {
         return prisma.room.findMany({ where: { usageId: usageId } })
     }
 
     /* Get rooms by manager */
-    async getRoomsByManager(manager: string): Promise<room[]> {
+    async getRoomsByManager(manager: string): Promise<Room[]> {
         return prisma.room.findMany({ where: { manager: manager } })
     }
 
     /* Get rooms by camera */
-    async getRoomsByCamera(camera: number): Promise<room[]> {
+    async getRoomsByCamera(camera: number): Promise<Room[]> {
         return prisma.room.findMany({ where: { camera: camera } })
     }
 
     /* Get rooms by projector */
-    async getRoomsByProjector(projector: number): Promise<room[]> {
+    async getRoomsByProjector(projector: number): Promise<Room[]> {
         return prisma.room.findMany({ where: { projector: projector } })
     }
 
     /* Get rooms by usage */
-    async getRoomsByFloor(floorId: string): Promise<room[]> {
+    async getRoomsByFloor(floorId: string): Promise<Room[]> {
         return prisma.room.findMany({ where: { floorId: floorId } })
     }
 
     /* Get rooms by capacity */
-    async getRoomsByCapacity(capacity: number): Promise<room[]> {
+    async getRoomsByCapacity(capacity: number): Promise<Room[]> {
         return prisma.room.findMany({ where: { capacity: { gte: capacity } } })
     }
 
@@ -70,25 +70,21 @@ export class roomDAO implements IGenericDao<room> {
     /*************************** UPDATE ***************************/
     /**************************************************************/
 
-    async update(roomID: string, model: room): Promise<room> {
+    async update(roomID: string, model: { description: string | null, usageId: number | null, manager: string | null, computer: number | null, camera: number | null, projector: number | null, capacity: number | null }): Promise<Room> {
         return prisma.room.update({
             where: { id: roomID },
             data: {
-                floorId: model.floorId,
-                description: model.description,
-                usageId: model.usageId,
-                manager: model.manager,
-                computer: model.computer,
-                projector: model.projector,
-                capacity: model.capacity,
-                geodata: model.geodata
+                description: model?.description,
+                usageId: model?.usageId,
+                manager: model?.manager,
+                computer: model?.computer,
+                camera: model?.camera,
+                projector: model?.projector,
+                capacity: model?.capacity,
             }
         });
 
     }
-
-
-
 
 }
 

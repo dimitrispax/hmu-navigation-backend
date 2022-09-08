@@ -1,6 +1,6 @@
 import express from 'express';
 import { middleware } from "../../../middlewares/middleware";
-import { getAllRooms, getRoomByID, getRoomsByCamera, getRoomsByCapacity, getRoomsByDescription, getRoomsByFloor, getRoomsByManager, getRoomsByProjector, getRoomsByUsage } from "../../controllers/roomsControllers";
+import { getAllRooms, getRoomByID, getRoomsByCamera, getRoomsByCapacity, getRoomsByDescription, getRoomsByFloor, getRoomsByManager, getRoomsByProjector, getRoomsByUsage, updateRoom } from "../../controllers/roomsControllers";
 const router = express.Router();
 
 /* INDEX ROUTE */
@@ -38,6 +38,13 @@ router.get('/usageID/:roomUsageID', middleware, getRoomsByUsage);
 
 /* GET ROOM BY IF THEY HAVE CAPACITY FOR CERTAIN AMOUNT OF PERSONS */
 router.get('/fit-more-than/:roomCapacity', middleware, getRoomsByCapacity);
+
+
+/**************************************************************/
+/*************************** UPDATE ***************************/
+/**************************************************************/
+const bodyParser = require('body-parser').json();
+router.patch('/update/:roomID', bodyParser, updateRoom)
 
 
 export default router;  
