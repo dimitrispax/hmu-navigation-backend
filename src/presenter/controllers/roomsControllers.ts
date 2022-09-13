@@ -16,7 +16,7 @@ export const getAllRooms = async (req: Request, res: Response, next: NextFunctio
     try {
         const roomsDAOCalls = new roomDAO();                                        // Calling DAO.
         const allRooms = await roomsDAOCalls.getAll();                              // Get All Rooms from DAO.
-        console.log("all rooms: ", allRooms);
+
         const DTORooms = allRooms.map((room) => dtoMapper(room, new roomDTO()));    // Transforming objects with DTO.
 
         res.status(200).json({
@@ -146,7 +146,7 @@ export const getRoomsByManager = async (req: Request, res: Response, next: NextF
 export const getRoomsByFloor = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const roomFloor = req.params.roomFloor;
-        console.log('Room: ', roomFloor);
+
         const roomsDAOCalls = new roomDAO();                                         // Calling DAO.
         const rooms = await roomsDAOCalls.getRoomsByFloor(roomFloor);                // Get room by floor from DAO.
 

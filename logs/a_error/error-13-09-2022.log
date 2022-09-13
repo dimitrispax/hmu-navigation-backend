@@ -1,0 +1,3 @@
+[13-09-2022 01:00:24.627 PM] error: 	REQUEST => [GET]: '/rooms/room/%CE%9A14.0.23423423424', IP: ::1 , ERROR => [500]: Not found.
+[13-09-2022 01:16:08.958 PM] error: 	REQUEST => [GET]: '/rooms/room/%CE%9A14.0.23423423424', IP: ::1 , ERROR => [500]: Not found.
+[13-09-2022 01:16:54.989 PM] error: 	REQUEST => [GET]: '/rooms/room/%CE%9A14.0.23534534', IP: ::1 , ERROR => [500]: Not found.

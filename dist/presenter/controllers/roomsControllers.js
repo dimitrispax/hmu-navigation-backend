@@ -25,7 +25,6 @@ const getAllRooms = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     try {
         const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
         const allRooms = yield roomsDAOCalls.getAll(); // Get All Rooms from DAO.
-        console.log("all rooms: ", allRooms);
         const DTORooms = allRooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
         res.status(200).json({
             message: 'All rooms',
@@ -151,7 +150,6 @@ exports.getRoomsByManager = getRoomsByManager;
 const getRoomsByFloor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const roomFloor = req.params.roomFloor;
-        console.log('Room: ', roomFloor);
         const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
         const rooms = yield roomsDAOCalls.getRoomsByFloor(roomFloor); // Get room by floor from DAO.
         if ((rooms === null || rooms === void 0 ? void 0 : rooms.length) === 0) {
@@ -337,7 +335,6 @@ const updateRoom = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const roomID = req.params.roomID;
         console.log("BUT MY BODY IS TELLING ME: ", req.body.camera);
         const { description, usageId, manager, computer, camera, projector, capacity } = req.body;
-        console.log("test: ", !camera);
         /* Handling if user leaves an input field empty */
         if (!description) {
             throw new error400_1.Error400("No 'description' given.", null);
