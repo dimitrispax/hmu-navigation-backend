@@ -333,7 +333,7 @@ exports.getRoomsByUsageAndCapacityAndProjector = getRoomsByUsageAndCapacityAndPr
 const updateRoom = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const roomID = req.params.roomID;
-        console.log("BUT MY BODY IS TELLING ME: ", req.body.camera);
+        console.log("BUT MY BODY IS TELLING ME: ", req.body);
         const { description, usageId, manager, computer, camera, projector, capacity } = req.body;
         /* Handling if user leaves an input field empty */
         if (!description) {

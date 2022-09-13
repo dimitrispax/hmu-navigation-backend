@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const httpErrorHandlerMiddleware_1 = require("./middlewares/httpErrorHandlerMiddleware");
+const error404_1 = require("./config/Errors/models/error404");
 /* ROUTES */
 const rooomRoutes_1 = __importDefault(require("./presenter/routes/v1/rooomRoutes"));
 const app = (0, express_1.default)();
@@ -27,8 +28,11 @@ app.use('/rooms', rooomRoutes_1.default);
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(200).json({ message: 'ROOT' });
 }));
+/* UNKWOWN PATH HANDLER */
+app.use((req, res, next) => { next(new error404_1.Error404(`Route ${req.path} not found.`, null)); });
 /* ERROR HANDLER */
 app.use(httpErrorHandlerMiddleware_1.httpErrorHandlerMiddleware);
+/* SERVER START */
 app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
 });

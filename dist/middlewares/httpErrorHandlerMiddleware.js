@@ -10,24 +10,23 @@ const httpErrorHandlerMiddleware = (err, req, res, next) => {
     const loggingService = new loggingService_1.default();
     const requestURI = req.url;
     const requestMethod = req.method;
+    const errorStatus = err.statusCode || 500;
+    const errorMessage = err.message;
     const requestIP = req.headers['x-real-ip'] || req.socket.remoteAddress;
-    let errorStatus = 500;
-    let errorMessage = 'Internal Server Error';
-    /* UNDEFINED ERROR */
-    console.log('-------> An undefined ERROR has occured. <-------');
-    errorStatus = (err === null || err === void 0 ? void 0 : err.status) || 500;
-    errorMessage = err.message;
-    console.log(err.message);
-    console.log(err.stack);
     if (errorStatus === 500) {
         loggingService.log(levelsEnum_1.default.ERROR, `REQUEST => [${requestMethod}]: '${requestURI}', IP: ${requestIP} , ERROR => [${errorStatus}]: ${errorMessage}`);
     }
     loggingService.log(levelsEnum_1.default.HTTP, `REQUEST => [${requestMethod}]: '${requestURI}', IP: ${requestIP} , ERROR => [${errorStatus}]: ${errorMessage}`);
+    console.log(":::::::LOGS:::::::");
+    console.log("errorMessage: ", errorMessage);
+    console.log("requestURI: ", requestURI);
+    console.log("requestMethod: ", requestMethod);
+    console.log("errorStatus: ", errorStatus);
     /* RESPONSE */
     res.status(errorStatus).json({
         success: false,
         error: {
-            message: errorMessage
+            message: (errorStatus === 500) ? 'Internal Server Error' : errorMessage
         }
     });
 };

@@ -22,7 +22,6 @@ export class BaseError extends Error {
         this.name = value;
     }
 
-
     public getStatusCode(): HttpStatusCode {
         return this.statusCode;
     }

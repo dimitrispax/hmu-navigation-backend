@@ -1,26 +1,2 @@
-[13-09-2022 12:38:40.373 PM] http: 	REQUEST => [GET]: '/all', IP: ::1
-[13-09-2022 12:38:54.644 PM] http: 	REQUEST => [GET]: '/all', IP: ::1
-[13-09-2022 12:38:55.455 PM] http: 	REQUEST => [GET]: '/all', IP: ::1
-[13-09-2022 12:38:57.779 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:38:58.374 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:38:59.618 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:39:53.513 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:39:56.562 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:39:57.818 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:40:05.762 PM] http: 	REQUEST => [GET]: '/all', IP: ::1
-[13-09-2022 12:40:08.702 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:43:53.296 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:43:54.040 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:43:55.119 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:43:55.696 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:44:02.665 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 12:44:03.306 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 01:00:22.235 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.24', IP: ::1
-[13-09-2022 01:00:24.622 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.23423423424', IP: ::1
-[13-09-2022 01:00:24.628 PM] http: 	REQUEST => [GET]: '/rooms/room/%CE%9A14.0.23423423424', IP: ::1 , ERROR => [500]: Not found.
-[13-09-2022 01:16:08.622 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.23423423424', IP: ::1
-[13-09-2022 01:16:08.959 PM] http: 	REQUEST => [GET]: '/rooms/room/%CE%9A14.0.23423423424', IP: ::1 , ERROR => [500]: Not found.
-[13-09-2022 01:16:42.168 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.23', IP: ::1
-[13-09-2022 01:16:54.986 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.23534534', IP: ::1
-[13-09-2022 01:16:54.990 PM] http: 	REQUEST => [GET]: '/rooms/room/%CE%9A14.0.23534534', IP: ::1 , ERROR => [500]: Not found.
-[13-09-2022 01:17:02.714 PM] http: 	REQUEST => [GET]: '/room/%CE%9A14.0.23', IP: ::1
+[13-09-2022 03:06:51.587 PM] http: 	REQUEST => [GET]: '/rooms/allsdasdsd', IP: ::1 , ERROR => [404]: Not found.
+[13-09-2022 03:06:52.295 PM] http: 	REQUEST => [GET]: '/rooms/allsdasdsd', IP: ::1 , ERROR => [404]: Not found.

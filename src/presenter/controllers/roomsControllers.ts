@@ -330,7 +330,7 @@ export const getRoomsByUsageAndCapacityAndProjector = async (req: Request, res: 
 export const updateRoom = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const roomID = req.params.roomID
-        console.log("BUT MY BODY IS TELLING ME: ", req.body.camera)
+        console.log("BUT MY BODY IS TELLING ME: ", req.body)
         const { description, usageId, manager, computer, camera, projector, capacity } = req.body
 
 
