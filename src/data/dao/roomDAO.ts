@@ -12,8 +12,8 @@ export class roomDAO implements IGenericDao<Room> {
     /************************* NOT IN USE *************************/
     /**************************************************************/
 
-    async create(model: Room): Promise<Room> { throw new Error500("Not implemeted", null); };
-    async delete(id: string): Promise<boolean> { throw new Error500("Not implemeted", null); };
+    async create(model: Room): Promise<Room> { throw new Error500("Not implemented", null); };
+    async delete(id: string): Promise<boolean> { throw new Error500("Not implemented", null); };
 
 
     /**************************************************************/

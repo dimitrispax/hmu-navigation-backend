@@ -18,11 +18,11 @@ class roomDAO {
     /************************* NOT IN USE *************************/
     /**************************************************************/
     create(model) {
-        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
+        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemented", null); });
     }
     ;
     delete(id) {
-        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemeted", null); });
+        return __awaiter(this, void 0, void 0, function* () { throw new error500_1.Error500("Not implemented", null); });
     }
     ;
     /**************************************************************/

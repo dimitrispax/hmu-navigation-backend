@@ -11,10 +11,13 @@ import roomRoutes from "./presenter/routes/v1/rooomRoutes";
 const app = express();
 const port = process.env.PORT || 3000;
 
+
+
 /* Allowing CORS */
 app.use(cors({ credentials: true }));
 
-
+/* Parsing JSON */
+app.use(express.json())
 
 /* ROOM ROUTES */
 app.use('/rooms', roomRoutes)
@@ -34,5 +37,5 @@ app.use(httpErrorHandlerMiddleware);
 
 /* SERVER START */
 app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+  return console.log(`Server is running at http://localhost:${port}`);
 });

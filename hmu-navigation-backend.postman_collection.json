@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "b9412c7a-1221-4f3b-8773-f095496085e2",
+		"name": "hmu-navigation-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23392104"
+	},
+	"item": [
+		{
+			"name": "MRBS API",
+			"item": [
+				{
+					"name": "roomByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/pg/map/room/%CE%9A14.0.24",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"pg",
+								"map",
+								"room",
+								"%CE%9A14.0.24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "floorByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/pg/map/floor/%CE%9A14.0",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"pg",
+								"map",
+								"floor",
+								"%CE%9A14.0"
+							]
+						},
+						"description": "Contains the geodata of each room at the floor"
+					},
+					"response": []
+				},
+				{
+					"name": "buildingByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/pg/map/building/%CE%9A14",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"pg",
+								"map",
+								"building",
+								"%CE%9A14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borderByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/pg/map/border/%CE%9A14.0",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"pg",
+								"map",
+								"border",
+								"%CE%9A14.0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "annoByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/pg/map/anno/%CE%9A14.0",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"pg",
+								"map",
+								"anno",
+								"%CE%9A14.0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Localhost",
+			"item": [
+				{
+					"name": "updateRoom",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"NILE LAB - Εργαστήριο NILE\",\n  \"usageId\": 2,\n  \"manager\": \"Vidakis Nikolaos\",\n  \"computer\": 1,\n  \"camera\": 0,\n  \"projector\": 1,\n  \"capacity\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/rooms/update/Κ14.0.24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"update",
+								"Κ14.0.24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rooms that fit a number of people, that have a camera and a projector",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/rooms/have-capacity-of/0/have-camera/have-projector",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"have-capacity-of",
+								"0",
+								"have-camera",
+								"have-projector"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

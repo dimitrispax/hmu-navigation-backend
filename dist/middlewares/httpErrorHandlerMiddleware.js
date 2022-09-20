@@ -13,9 +13,11 @@ const httpErrorHandlerMiddleware = (err, req, res, next) => {
     const errorStatus = err.statusCode || 500;
     const errorMessage = err.message;
     const requestIP = req.headers['x-real-ip'] || req.socket.remoteAddress;
+    /* IF error status is 500 it means that there is an error, it sorts it as an ERROR log. */
     if (errorStatus === 500) {
         loggingService.log(levelsEnum_1.default.ERROR, `REQUEST => [${requestMethod}]: '${requestURI}', IP: ${requestIP} , ERROR => [${errorStatus}]: ${errorMessage}`);
     }
+    /* ELSE, sort each error as a HTTP log. */
     loggingService.log(levelsEnum_1.default.HTTP, `REQUEST => [${requestMethod}]: '${requestURI}', IP: ${requestIP} , ERROR => [${errorStatus}]: ${errorMessage}`);
     console.log(":::::::LOGS:::::::");
     console.log("errorMessage: ", errorMessage);

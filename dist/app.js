@@ -22,6 +22,8 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 /* Allowing CORS */
 app.use((0, cors_1.default)({ credentials: true }));
+/* Parsing JSON */
+app.use(express_1.default.json());
 /* ROOM ROUTES */
 app.use('/rooms', rooomRoutes_1.default);
 /* ROOT ROUTE */
@@ -34,6 +36,6 @@ app.use((req, res, next) => { next(new error404_1.Error404(`Route ${req.path} no
 app.use(httpErrorHandlerMiddleware_1.httpErrorHandlerMiddleware);
 /* SERVER START */
 app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
+    return console.log(`Server is running at http://localhost:${port}`);
 });
 //# sourceMappingURL=app.js.map

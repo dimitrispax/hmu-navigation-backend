@@ -63,8 +63,7 @@ router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity/have-projector'
 /*************************** UPDATE ***************************/
 /**************************************************************/
 
-const bodyParser = require('body-parser').json();
-router.patch('/update/:roomID', bodyParser, updateRoom)
+router.patch('/update/:roomID', updateRoom)
 
 
 export default router;  

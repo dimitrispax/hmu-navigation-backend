@@ -45,7 +45,6 @@ router.get('/usageID/:roomUsageID/have-capacity-of/:roomCapacity/have-projector'
 /**************************************************************/
 /*************************** UPDATE ***************************/
 /**************************************************************/
-const bodyParser = require('body-parser').json();
-router.patch('/update/:roomID', bodyParser, roomsControllers_1.updateRoom);
+router.patch('/update/:roomID', roomsControllers_1.updateRoom);
 exports.default = router;
 //# sourceMappingURL=rooomRoutes.js.map
