@@ -129,6 +129,29 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "doorByRoomID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/pg/door/%CE%9A14.0.24",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"pg",
+								"door",
+								"%CE%9A14.0.24"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

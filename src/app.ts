@@ -5,7 +5,7 @@ import { Error404 } from './config/Errors/models/error404';
 
 /* ROUTES */
 import roomRoutes from "./presenter/routes/v1/rooomRoutes";
-
+import MRBSRoutes from "./presenter/routes/v1/MRBSRoutes";
 
 
 const app = express();
@@ -21,6 +21,9 @@ app.use(express.json())
 
 /* ROOM ROUTES */
 app.use('/rooms', roomRoutes)
+
+/* MRBS ROUTES */
+app.use('/mrbs', MRBSRoutes)
 
 /* ROOT ROUTE */
 app.get('/', async (req, res) => {

@@ -18,6 +18,7 @@ const httpErrorHandlerMiddleware_1 = require("./middlewares/httpErrorHandlerMidd
 const error404_1 = require("./config/Errors/models/error404");
 /* ROUTES */
 const rooomRoutes_1 = __importDefault(require("./presenter/routes/v1/rooomRoutes"));
+const MRBSRoutes_1 = __importDefault(require("./presenter/routes/v1/MRBSRoutes"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 /* Allowing CORS */
@@ -26,6 +27,8 @@ app.use((0, cors_1.default)({ credentials: true }));
 app.use(express_1.default.json());
 /* ROOM ROUTES */
 app.use('/rooms', rooomRoutes_1.default);
+/* MRBS ROUTES */
+app.use('/mrbs', MRBSRoutes_1.default);
 /* ROOT ROUTE */
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(200).json({ message: 'ROOT' });
