@@ -159,6 +159,29 @@
 			"name": "Localhost",
 			"item": [
 				{
+					"name": "Rooms that fit a number of people, that have a camera and a projector",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/rooms/have-capacity-of/0/have-camera/have-projector",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"have-capacity-of",
+								"0",
+								"have-camera",
+								"have-projector"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "updateRoom",
 					"request": {
 						"method": "PATCH",
@@ -189,23 +212,21 @@
 					"response": []
 				},
 				{
-					"name": "Rooms that fit a number of people, that have a camera and a projector",
+					"name": "getAllMRBSData",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/rooms/have-capacity-of/0/have-camera/have-projector",
+							"raw": "http://localhost:3000/mrbs/api/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"rooms",
-								"have-capacity-of",
-								"0",
-								"have-camera",
-								"have-projector"
+								"mrbs",
+								"api",
+								"all"
 							]
 						}
 					},
