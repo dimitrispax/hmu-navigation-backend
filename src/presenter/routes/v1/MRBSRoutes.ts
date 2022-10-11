@@ -1,6 +1,7 @@
 import express from 'express';
 
-import { getFloorByID, getDoorsByID, getBuildingByID } from "../../controllers/MRBSControllers";
+import { getAllMRBSData } from '../../controllers/MRBSControllers';
+
 const router = express.Router();
 
 /* INDEX ROUTE */
@@ -12,15 +13,9 @@ router.get('/', (req, res) => {
 /**************************** GET *****************************/
 /**************************************************************/
 
-/* GET ALL ROOMS OF A FLOOR */
-router.get('/floor/:floorID', getFloorByID);
 
-/* GET ALL DOORS OF A ROOM */
-router.get('/doors-of-room/:roomID', getDoorsByID);
 
-/* GET BUILDING */
-router.get('/building/:buildingID', getBuildingByID);
-
+router.get('/api/all', getAllMRBSData);
 
 
 export default router;  

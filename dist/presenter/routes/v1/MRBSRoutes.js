@@ -13,11 +13,6 @@ router.get('/', (req, res) => {
 /**************************************************************/
 /**************************** GET *****************************/
 /**************************************************************/
-/* GET ALL ROOMS OF A FLOOR */
-router.get('/floor/:floorID', MRBSControllers_1.getFloorByID);
-/* GET ALL DOORS OF A ROOM */
-router.get('/doors-of-room/:roomID', MRBSControllers_1.getDoorsByID);
-/* GET BUILDING */
-router.get('/building/:buildingID', MRBSControllers_1.getBuildingByID);
+router.get('/api/all', MRBSControllers_1.getAllMRBSData);
 exports.default = router;
 //# sourceMappingURL=MRBSRoutes.js.map
