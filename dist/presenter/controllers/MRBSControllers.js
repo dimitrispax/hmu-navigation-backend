@@ -17,10 +17,7 @@ const MRBSService_1 = require("../../domain/services/MRBSService");
 const getAllMRBSData = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const MRBSData = yield (0, MRBSService_1.getMRBSData)();
-        res.status(200).send({
-            success: true,
-            MRBSData
-        });
+        res.status(200).send(MRBSData);
     }
     catch (err) {
         console.log("ERROR");

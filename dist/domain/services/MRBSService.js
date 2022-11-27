@@ -18,17 +18,17 @@ const cliProgress = require('cli-progress');
 /***************************************/
 /**** Accessing data from MRBS API ****/
 /*************************************/
-// In practice, there is not any calls to get All the floors of the building
-// so, this function make floorIDs and structure the first
+// In practice, there is not any calls to get ALL the floors of the building
+// so, this function makes floorIDs and structure the first
 // level of the dictionary.
 const floorIDMaker = (base) => {
-    let floorIDObj = [];
+    let floorIDObj = {};
     // the MAX building floors is 3
     // the MIN building floors is -1
     for (let i = -1; i <= 3; i++) {
         if (i === -1) {
             let floorID = base + '.' + '00'; // the mrbs system portrays -1 floors as 00.
-            floorIDObj[i] = { floorID, rooms: {}, outline: {} };
+            floorIDObj['00'] = { floorID, rooms: {}, outline: {} };
             continue;
         }
         let floorID = base + '.' + i;
@@ -84,16 +84,43 @@ const getFloorOutline = (floorID) => __awaiter(void 0, void 0, void 0, function*
     }
     return null;
 });
+const getAllFloors = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const URI = "https://mrbs.hmu.gr/api/pg/map/floors";
+        const encodedURI = encodeURI(URI);
+        const response = yield axios_1.default.get(encodedURI);
+        return response.data;
+    }
+    catch (err) {
+        console.log("ERROR");
+    }
+    return null;
+});
+const getAllDoors = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const URI = "https://mrbs.hmu.gr/api/pg/doors";
+        const encodedURI = encodeURI(URI);
+        const response = yield axios_1.default.get(encodedURI);
+        return response.data;
+    }
+    catch (err) {
+        console.log("ERROR");
+    }
+    return null;
+});
 const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     // create a new progress bar instance and use shades_classic theme
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
     // Gets all buildings of the campurs from the MRBS API.
     const buildings = yield getAllBuildings();
+    const floors = yield getAllFloors();
+    const doors = yield getAllDoors();
+    let floorObj = [];
     let dictionary = {};
     let roomCount = 0;
     // start the progress bar with a total value of 1080(all rooms that are in MRBS) and start value of 0
     console.log("\n------====DOWNLOADING MRBS DATA====------");
-    progressBar.start(1080, 0);
+    progressBar.start(922, 0);
     /* Creating Floors */
     for (const building of buildings.features) {
         // create and store the floorID of each building
@@ -101,15 +128,22 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
         /* Creating data of each floor */
         for (const floor of Object.keys(dictionary[building.id])) {
             //get the rooms of each floor of a building
-            let roomsOfFloor = yield getAllRoomsOfFloor(dictionary[building.id][floor].floorID);
+            let roomsOfFloor = floors.features.filter((room) => {
+                let roomID = room.id.split(".");
+                if (floor === "-1") {
+                    console.log("roomID[1]: ", roomID[1]);
+                    console.log("floor: ", floor);
+                }
+                return (JSON.stringify(roomID[0]) === JSON.stringify(building.id) && JSON.stringify(roomID[1]) === JSON.stringify(floor));
+            });
             // accessing only the buildings that have data.
-            if (roomsOfFloor.features.length !== 0) {
+            if (roomsOfFloor.length !== 0) {
                 //get the outline of each floor of a building
                 let outline = yield getFloorOutline(dictionary[building.id][floor].floorID);
                 //storing the outline of each floor
                 dictionary[building.id][floor].outline = outline;
                 //storing the rooms of each floor
-                dictionary[building.id][floor].rooms = roomsOfFloor.features;
+                dictionary[building.id][floor].rooms = roomsOfFloor;
                 //deleting floorID as a property
                 delete (dictionary[building.id][floor].floorID);
                 /* Creating data of room */
@@ -123,14 +157,18 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
                     // storing outline of room(geodata).
                     dictionary[building.id][floor][roomNumber] = { doors: {}, outline: room };
                     // storing the doors(geodata) of each room.
-                    dictionary[building.id][floor][roomNumber].doors = yield getAllDoorsOfRoom(room.id);
+                    // dictionary[building.id][floor][roomNumber].doors = await getAllDoorsOfRoom(room.id);
+                    dictionary[building.id][floor][roomNumber] = doors.filter((door) => {
+                        let doorID = door.json_build_object.id.split(".");
+                        return (JSON.stringify(doorID[0]) === JSON.stringify(building.id) && JSON.stringify(doorID[1]) === JSON.stringify(floor) && JSON.stringify(doorID[2]) === JSON.stringify(roomNumber));
+                    });
                     /* !TEST ON THE GO!
                       if (dictionary["Κ33"][0]["01"] !== undefined)
                         console.log("TEST:", dictionary["Κ33"][0]["01"].doors);
                     */
-                    // count the number of rooms(1080 calls)
+                    // count the number of rooms(922 calls)
                     roomCount += 1;
-                    // update the current value in your application..
+                    // updating progress bar with the value of roomCount
                     progressBar.update(roomCount);
                 }
             }

@@ -12,10 +12,7 @@ export const getAllMRBSData = async (req: Request, res: Response, next: NextFunc
     try {
 
         const MRBSData = await getMRBSData();
-        res.status(200).send({
-            success: true,
-            MRBSData
-        })
+        res.status(200).send(MRBSData);
     }
     catch (err) {
         console.log("ERROR")
