@@ -29,7 +29,7 @@ app.use('/rooms', roomRoutes)
 app.use('/doors', doorRoutes)
 
 /* BUILDING ROUTES */
-app.use('/building', buildingRoutes)
+app.use('/buildings', buildingRoutes)
 
 /* MRBS ROUTES */
 app.use('/mrbs', MRBSRoutes)

@@ -18,9 +18,8 @@ export const getAllRooms = async (req: Request, res: Response, next: NextFunctio
         const DTORooms = allRooms.map((room) => dtoMapper(room, new roomDTO()));    // Transforming objects with DTO.
 
         res.status(200).json({
-            message: 'All rooms',
-            count: DTORooms.length,
-            rooms: DTORooms
+            type: "FeatureCollection",
+            features: DTORooms
         })
     } catch (err) {
         console.log("ERROR")

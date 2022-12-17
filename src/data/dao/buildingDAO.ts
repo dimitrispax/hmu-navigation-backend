@@ -26,7 +26,7 @@ export class buildingDAO implements IGenericDao<Building> {
     async getAll(): Promise<Building[]> {
         let response;
         try {
-            response = await pool.query(`SELECT json_build_object('type', 'Feature', 'id', b.id,'geometry',ST_AsGeoJSON(st_transform(b.geom,4326))::json, 'properties', json_build_object('feat_type', 'point')) FROM building b`);
+            response = await pool.query(`SELECT 'Feature' as type, b.id as id, ST_AsGeoJSON(st_transform(b.geom,4326))::json as geometry, json_build_object('feat_type', 'point') as properties FROM building b`);
             return response.rows;
         } catch (error) {
             throw (error);

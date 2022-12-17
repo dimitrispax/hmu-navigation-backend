@@ -1,7 +1,15 @@
-export default class roomDTO {
-    json_build_object!: JSON
+
+export default class buildingDTO {
+    type: string
+    id!: string
+    geometry: JSON
+    properties: JSON
+
 
     constructor() {
-        this.json_build_object = JSON
+        this.type = "",
+        this.id = "",
+        this.geometry = JSON,
+        this.properties = JSON
     }
 }
