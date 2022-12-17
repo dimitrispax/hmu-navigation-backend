@@ -1,4 +1,3 @@
-
 export default class roomDTO {
     json_build_object!: JSON
 
