@@ -76,9 +76,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
     const doors: any = await getAllDoors();
     const roomsData = await getAllRoomsData();
 
-    console.log(roomsData);
-
-
     let dictionary: any = {};
     let roomCount = 0;
 
@@ -117,7 +114,7 @@ export const getMRBSData: () => Promise<Object> = async () => {
                 let outline = await getFloorOutline(dictionary[building.id][floor].floorID);
 
                 //storing the outline of each floor
-                dictionary[building.id][floor].outline = outline;
+                // dictionary[building.id][floor].outline = outline;
                 //storing the rooms of each floor
                 dictionary[building.id][floor].rooms = roomsOfFloor;
 
@@ -138,9 +135,13 @@ export const getMRBSData: () => Promise<Object> = async () => {
                     dictionary[building.id][floor][roomNumber] = { doors: {}, info: {}, outline: room };
                     // storing the doors(geodata) of each room.
                     // dictionary[building.id][floor][roomNumber].doors = await getAllDoorsOfRoom(room.id);
-                    dictionary[building.id][floor][roomNumber] = doors.filter((door: any) => {
+                    dictionary[building.id][floor][roomNumber].doors = doors.filter((door: any) => {
                         let doorID = door.json_build_object.id.split(".")
                         return (JSON.stringify(doorID[0]) === JSON.stringify(building.id) && JSON.stringify(doorID[1]) === JSON.stringify(floor) && JSON.stringify(doorID[2]) === JSON.stringify(roomNumber))
+                    });
+                    dictionary[building.id][floor][roomNumber].info = roomsData.find((roomData: any) => {
+                        let roomDataID = roomData.sort_key.split(".")
+                        return (JSON.stringify(roomDataID[0]) === JSON.stringify(building.id) && JSON.stringify(roomDataID[1]) === JSON.stringify(floor) && JSON.stringify(roomDataID[2]) === JSON.stringify(roomNumber))
                     });
 
                     /* !TEST ON THE GO! 
@@ -168,6 +169,9 @@ export const getMRBSData: () => Promise<Object> = async () => {
     // stop the progress bar
     progressBar.stop();
 
+
+
+    console.log(dictionary['Κ14'][0]['23'].info['description'])
 
 
     // return all data of MRBS to user.
