@@ -10,20 +10,20 @@ import dtoMapper from '../../domain/utillities/dtoMapper';
 /**************************** READ ****************************/
 /**************************************************************/
 
-export const getAllBuildings = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllBuildings = async () => {
     try {
         const buildingsDAOCalls = new buildingDAO();                                        // Calling DAO.
         const allBuildings = await buildingsDAOCalls.getAll();                              // Get All Doors from DAO.
 
         const DTOBuildings = allBuildings.map((building) => dtoMapper(building, new BuildingDTO()));    // Transforming objects with DTO.
 
-        res.status(200).json({
+        return {
             type: "FeatureCollection",
             features: DTOBuildings
-        })
+        }
     } catch (err) {
         console.log("ERROR")
-        return next(err)
+        return err;
     }
 }
 
