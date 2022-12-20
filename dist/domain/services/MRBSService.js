@@ -21,6 +21,7 @@ const cliProgress = require('cli-progress');
 /***************************************/
 /**** Accessing data from MRBS API ****/
 /*************************************/
+/* Constructing a new universal custom axios call */
 const baseURL = `https://mrbs.hmu.gr/api`;
 const MRBS = axios_1.default.create({ baseURL });
 // In practice, there is not any calls to get ALL the floors of the building
@@ -41,6 +42,7 @@ const floorIDMaker = (base) => {
     }
     return floorIDObj;
 };
+/* Gets each outline of the floor that the user requests.  */
 const getFloorOutline = (floorID) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const URI = `/pg/map/border/${floorID}`;
@@ -53,6 +55,7 @@ const getFloorOutline = (floorID) => __awaiter(void 0, void 0, void 0, function*
     }
     return null;
 });
+/* Gets info for each room from MRBS API. */
 const getAllRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const URI = `/map/rooms`;
@@ -68,10 +71,11 @@ const getAllRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
 const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     // create a new progress bar instance and use shades_classic theme
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
-    // Gets all buildings of the campurs from the MRBS API.
+    // Gets all rooms, doors and buildings of the campus from postgres(QGIS).
     const buildings = yield (0, buildingControllers_1.getAllBuildings)();
     const floors = yield (0, roomsControllers_1.getAllRooms)();
     const doors = yield (0, doorControllers_1.getAllDoors)();
+    // Gets all buildings of the campus from the MRBS API.
     const roomsData = yield getAllRoomsData();
     let dictionary = {};
     let roomCount = 0;

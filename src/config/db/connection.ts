@@ -1,5 +1,8 @@
 import { Pool, PoolConfig } from 'pg';
+import * as dotenv from 'dotenv';
 
+
+dotenv.config();
 
 let config: PoolConfig | undefined;
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
@@ -12,5 +15,6 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_DB
     };
+
 }
 export const pool = new Pool(config);

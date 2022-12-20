@@ -1,7 +1,7 @@
 import { Error500 } from '../../config/Errors/models/error500';
 import { IGenericDao } from './IGenericDao';
 import { Building } from '../models/building';
-import { pool } from '../../db/connection';
+import { pool } from '../../config/db/connection';
 
 
 export class buildingDAO implements IGenericDao<Building> {

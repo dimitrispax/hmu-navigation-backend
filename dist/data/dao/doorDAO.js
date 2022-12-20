@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.doorDAO = void 0;
 const error500_1 = require("../../config/Errors/models/error500");
-const connection_1 = require("../../db/connection");
+const connection_1 = require("../../config/db/connection");
 class doorDAO {
     /**************************************************************/
     /************************* NOT IN USE *************************/

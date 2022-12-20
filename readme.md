@@ -4,7 +4,7 @@ First of all, make a .env file that contains the following:
 ```sh
 DATABASE_HOST="..."
 DATABASE_USER="..."
-DATABASE_PASSPORT="..."
+DATABASE_PASSWORD="..."
 DATABASE_DB="..."
 ```
 and at db/connection.ts change the port also.

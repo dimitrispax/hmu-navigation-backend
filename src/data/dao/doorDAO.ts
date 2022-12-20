@@ -1,7 +1,7 @@
 import { Error500 } from '../../config/Errors/models/error500';
 import { IGenericDao } from './IGenericDao';
 import { Door } from '../models/door';
-import { pool } from '../../db/connection';
+import { pool } from '../../config/db/connection';
 
 
 export class doorDAO implements IGenericDao<Door> {

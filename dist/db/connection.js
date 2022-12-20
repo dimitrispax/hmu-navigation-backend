@@ -1,16 +1,6 @@
 "use strict";
-// import { Client } from 'pg';
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pool = void 0;
-// /* Connecting to the database using the needed credentials. */
-// export const client = new Client({
-//     // /* Connection Setting if you are using localhost. */
-//     host: "localhost",
-//     user: "postgres",
-//     port: 5432,
-//     password: "root",
-//     database: "hmu"
-// });
 const pg_1 = require("pg");
 let config;
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
@@ -18,11 +8,11 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 }
 else {
     config = {
-        host: "147.95.40.107",
-        user: "postgres",
+        host: process.env.DATABASE_HOST,
+        user: process.env.DATABASE_USER,
         port: 8000,
-        password: "root",
-        database: "hmu"
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_DB
     };
 }
 exports.pool = new pg_1.Pool(config);
