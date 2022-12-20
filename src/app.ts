@@ -26,13 +26,13 @@ app.use(express.json())
 
 
 /* CONNECTION ROUTES */
-app.use('/connections', connectionRoutes)
+app.use('/api/connections', connectionRoutes)
 
 /* POINT ROUTES */
-app.use('/points', pointRoutes)
+app.use('/api/points', pointRoutes)
 
 /* MRBS ROUTES */
-app.use('/mrbs', MRBSRoutes)
+app.use('/api/mrbs', MRBSRoutes)
 
 
 /* ROOT ROUTE */

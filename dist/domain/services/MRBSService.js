@@ -86,9 +86,11 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     for (const building of buildings.features) {
         // create and store the floorID of each building
         dictionary[building.id] = floorIDMaker(building.id);
+        // setting all rooms info
+        dictionary['roomsInfo'] = roomsData;
         /* Creating data of each floor */
         for (const floor of Object.keys(dictionary[building.id])) {
-            //get the rooms of each floor of a building
+            // get the rooms of each floor of a building
             let roomsOfFloor = floors.features.filter((room) => {
                 let roomID = room.id.split(".");
                 if (floor === "-1") {
@@ -99,13 +101,13 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
             });
             // accessing only the buildings that have data.
             if (roomsOfFloor.length !== 0) {
-                //get the outline of each floor of a building
+                // get the outline of each floor of a building
                 let outline = yield getFloorOutline(dictionary[building.id][floor].floorID);
-                //storing the outline of each floor
+                // storing the outline of each floor
                 // dictionary[building.id][floor].outline = outline;
-                //storing the rooms of each floor
+                // storing the rooms of each floor
                 dictionary[building.id][floor].rooms = roomsOfFloor;
-                //deleting floorID as a property
+                // deleting floorID as a property
                 delete (dictionary[building.id][floor].floorID);
                 /* Creating data of room */
                 for (const room of dictionary[building.id][floor].rooms) {
@@ -116,16 +118,12 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
                     let roomNumber = room.id.split(".")[2];
                     // using the room number in order to be able to access the room in the dictionary.
                     // storing outline of room(geodata).
-                    dictionary[building.id][floor][roomNumber] = { doors: {}, info: {}, outline: room };
+                    dictionary[building.id][floor][roomNumber] = { outline: room };
                     // storing the doors(geodata) of each room.
                     // dictionary[building.id][floor][roomNumber].doors = await getAllDoorsOfRoom(room.id);
-                    dictionary[building.id][floor][roomNumber].doors = doors.filter((door) => {
+                    dictionary[building.id][floor][roomNumber] = doors.filter((door) => {
                         let doorID = door.json_build_object.id.split(".");
                         return (JSON.stringify(doorID[0]) === JSON.stringify(building.id) && JSON.stringify(doorID[1]) === JSON.stringify(floor) && JSON.stringify(doorID[2]) === JSON.stringify(roomNumber));
-                    });
-                    dictionary[building.id][floor][roomNumber].info = roomsData.find((roomData) => {
-                        let roomDataID = roomData.sort_key.split(".");
-                        return (JSON.stringify(roomDataID[0]) === JSON.stringify(building.id) && JSON.stringify(roomDataID[1]) === JSON.stringify(floor) && JSON.stringify(roomDataID[2]) === JSON.stringify(roomNumber));
                     });
                     /* !TEST ON THE GO!
                       if (dictionary["Κ33"][0]["01"] !== undefined)

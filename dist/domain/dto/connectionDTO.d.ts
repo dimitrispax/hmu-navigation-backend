@@ -1,6 +1,10 @@
 export default class ConnectionDTO {
-    id?: string;
+    distance?: number;
     starting_point: string;
+    starting_point_lat: number;
+    starting_point_lon: number;
     destination_point: string;
+    destination_point_lat: number;
+    destination_point_lon: number;
     constructor();
 }

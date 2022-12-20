@@ -27,11 +27,11 @@ app.use((0, cors_1.default)({ credentials: true }));
 /* Parsing JSON */
 app.use(express_1.default.json());
 /* CONNECTION ROUTES */
-app.use('/connections', connectionRoutes_1.default);
+app.use('/api/connections', connectionRoutes_1.default);
 /* POINT ROUTES */
-app.use('/points', pointRoutes_1.default);
+app.use('/api/points', pointRoutes_1.default);
 /* MRBS ROUTES */
-app.use('/mrbs', MRBSRoutes_1.default);
+app.use('/api/mrbs', MRBSRoutes_1.default);
 /* ROOT ROUTE */
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(200).json({ message: 'ROOT' });

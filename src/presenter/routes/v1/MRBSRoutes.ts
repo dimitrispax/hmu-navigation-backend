@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 
 
-router.get('/api/all', getAllMRBSData);
+router.get('/all', getAllMRBSData);
 
 
 export default router;  

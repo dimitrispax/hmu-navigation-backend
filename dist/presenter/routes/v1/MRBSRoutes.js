@@ -13,6 +13,6 @@ router.get('/', (req, res) => {
 /**************************************************************/
 /**************************** GET *****************************/
 /**************************************************************/
-router.get('/api/all', MRBSControllers_1.getAllMRBSData);
+router.get('/all', MRBSControllers_1.getAllMRBSData);
 exports.default = router;
 //# sourceMappingURL=MRBSRoutes.js.map

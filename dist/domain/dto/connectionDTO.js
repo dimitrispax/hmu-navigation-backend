@@ -2,9 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class ConnectionDTO {
     constructor() {
-        this.id = '',
-            this.starting_point = '';
+        this.distance = 0;
+        this.starting_point = '';
+        this.starting_point_lat = 0;
+        this.starting_point_lon = 0;
         this.destination_point = '';
+        this.destination_point_lat = 0;
+        this.destination_point_lon = 0;
     }
 }
 exports.default = ConnectionDTO;
