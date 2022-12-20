@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { getAllBuildings } from '../../presenter/controllers/buildingControllers';
+import { getAllDoors } from '../../presenter/controllers/doorControllers';
+import { getAllRooms } from '../../presenter/controllers/roomsControllers';
+
 const cliProgress = require('cli-progress');
 
 /***************************************/
@@ -29,49 +33,6 @@ const floorIDMaker = (base: string) => {
     return floorIDObj;
 }
 
-
-const getAllBuildings = async () => {
-    try {
-        const URI = `https://mrbs.hmu.gr/api/pg/map/buildings`;
-        const encodedURI = encodeURI(URI);
-        const response = await axios.get(encodedURI);
-
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR")
-    }
-    return null;
-}
-
-const getAllRoomsOfFloor = async (floorID: string) => {
-    try {
-        const URI = `https://mrbs.hmu.gr/api/pg/map/floor/${floorID}`;
-        const encodedURI = encodeURI(URI);
-        const response = await axios.get(encodedURI);
-
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR")
-    }
-    return null;
-}
-
-const getAllDoorsOfRoom = async (roomID: string) => {
-    try {
-        const URI = `https://mrbs.hmu.gr/api/pg/door/${roomID}`;
-        const encodedURI = encodeURI(URI);
-        const response = await axios.get(encodedURI);
-
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR")
-    }
-    return null;
-}
-
 const getFloorOutline = async (floorID: string) => {
     try {
         const URI = `https://mrbs.hmu.gr/api/pg/map/border/${floorID}`;
@@ -86,10 +47,9 @@ const getFloorOutline = async (floorID: string) => {
     return null;
 }
 
-
-const getAllFloors = async () => {
+const getAllRoomsData = async () => {
     try {
-        const URI = "https://mrbs.hmu.gr/api/pg/map/floors";
+        const URI = "https://mrbs.hmu.gr/api/map/rooms";
         const encodedURI = encodeURI(URI);
         const response = await axios.get(encodedURI);
 
@@ -102,19 +62,6 @@ const getAllFloors = async () => {
 }
 
 
-const getAllDoors = async () => {
-    try {
-        const URI = "https://mrbs.hmu.gr/api/pg/doors";
-        const encodedURI = encodeURI(URI);
-        const response = await axios.get(encodedURI);
-
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR")
-    }
-    return null;
-}
 
 
 
@@ -125,13 +72,12 @@ export const getMRBSData: () => Promise<Object> = async () => {
 
 
     // Gets all buildings of the campurs from the MRBS API.
-    const buildings = await getAllBuildings();
-    const floors = await getAllFloors();
-    const doors = await getAllDoors();
+    const buildings: any = await getAllBuildings();
+    const floors: any = await getAllRooms();
+    const doors: any = await getAllDoors();
+    const roomsData = await getAllRoomsData();
 
 
-
-    let floorObj = [];
     let dictionary: any = {};
     let roomCount = 0;
 
@@ -170,7 +116,7 @@ export const getMRBSData: () => Promise<Object> = async () => {
                 let outline = await getFloorOutline(dictionary[building.id][floor].floorID);
 
                 //storing the outline of each floor
-                dictionary[building.id][floor].outline = outline;
+                // dictionary[building.id][floor].outline = outline;
                 //storing the rooms of each floor
                 dictionary[building.id][floor].rooms = roomsOfFloor;
 
@@ -188,12 +134,16 @@ export const getMRBSData: () => Promise<Object> = async () => {
 
                     // using the room number in order to be able to access the room in the dictionary.
                     // storing outline of room(geodata).
-                    dictionary[building.id][floor][roomNumber] = { doors: {}, outline: room };
+                    dictionary[building.id][floor][roomNumber] = { doors: {}, info: {}, outline: room };
                     // storing the doors(geodata) of each room.
                     // dictionary[building.id][floor][roomNumber].doors = await getAllDoorsOfRoom(room.id);
-                    dictionary[building.id][floor][roomNumber] = doors.filter((door: any) => {
+                    dictionary[building.id][floor][roomNumber].doors = doors.filter((door: any) => {
                         let doorID = door.json_build_object.id.split(".")
                         return (JSON.stringify(doorID[0]) === JSON.stringify(building.id) && JSON.stringify(doorID[1]) === JSON.stringify(floor) && JSON.stringify(doorID[2]) === JSON.stringify(roomNumber))
+                    });
+                    dictionary[building.id][floor][roomNumber].info = roomsData.find((roomData: any) => {
+                        let roomDataID = roomData.sort_key.split(".")
+                        return (JSON.stringify(roomDataID[0]) === JSON.stringify(building.id) && JSON.stringify(roomDataID[1]) === JSON.stringify(floor) && JSON.stringify(roomDataID[2]) === JSON.stringify(roomNumber))
                     });
 
                     /* !TEST ON THE GO! 
@@ -221,6 +171,9 @@ export const getMRBSData: () => Promise<Object> = async () => {
     // stop the progress bar
     progressBar.stop();
 
+
+
+    console.log(dictionary['Κ14'][0]['23'].info['description'])
 
 
     // return all data of MRBS to user.

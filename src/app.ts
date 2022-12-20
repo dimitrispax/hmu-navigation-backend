@@ -6,6 +6,9 @@ import { Error404 } from './config/Errors/models/error404';
 /* ROUTES */
 import roomRoutes from "./presenter/routes/v1/rooomRoutes";
 import MRBSRoutes from "./presenter/routes/v1/MRBSRoutes";
+import doorRoutes from './presenter/routes/v1/doorRoutes';
+import buildingRoutes from './presenter/routes/v1/buildingRoutes';
+
 
 
 const app = express();
@@ -21,6 +24,12 @@ app.use(express.json())
 
 /* ROOM ROUTES */
 app.use('/rooms', roomRoutes)
+
+/* DOOR ROUTES */
+app.use('/doors', doorRoutes)
+
+/* BUILDING ROUTES */
+app.use('/buildings', buildingRoutes)
 
 /* MRBS ROUTES */
 app.use('/mrbs', MRBSRoutes)

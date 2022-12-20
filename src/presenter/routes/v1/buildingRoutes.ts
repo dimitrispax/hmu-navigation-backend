@@ -1,6 +1,7 @@
 import express from 'express';
+import { getAllBuildings } from '../../controllers/buildingControllers';
 
-import { getAllRooms } from "../../controllers/roomsControllers";
+
 const router = express.Router();
 
 /* INDEX ROUTE */
@@ -12,8 +13,8 @@ router.get('/', (req, res) => {
 /**************************** GET *****************************/
 /**************************************************************/
 
-/* GET ALL ROOMS */
-router.get('/all', getAllRooms);
+/* GET ALL BUILDINGS */
+router.get('/all', getAllBuildings);
 
 
 

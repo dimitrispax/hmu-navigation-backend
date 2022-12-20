@@ -1,5 +1,5 @@
 
-export default class roomDTO {
+export default class buildingDTO {
     type: string
     id!: string
     geometry: JSON

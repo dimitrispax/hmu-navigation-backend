@@ -1,4 +1,4 @@
-export class Room {
+export class Building {
 
     json_build_object?: JSON
 
