@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Room = void 0;
-class Room {
+exports.Building = void 0;
+class Building {
     constructor(json_build_object) {
         this.json_build_object = json_build_object;
     }
 }
-exports.Room = Room;
-//# sourceMappingURL=room.js.map
+exports.Building = Building;
+//# sourceMappingURL=building.js.map

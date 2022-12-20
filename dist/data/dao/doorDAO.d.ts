@@ -1,15 +1,15 @@
 import { IGenericDao } from './IGenericDao';
-import { Room } from '../models/room';
-export declare class roomDAO implements IGenericDao<Room> {
+import { Door } from '../models/door';
+export declare class doorDAO implements IGenericDao<Door> {
     /**************************************************************/
     /************************* NOT IN USE *************************/
     /**************************************************************/
-    create(model: Room): Promise<Room>;
+    create(model: Door): Promise<Door>;
     delete(id: string): Promise<boolean>;
-    update(id: string, model: Room): Promise<Room>;
-    getById(id: string): Promise<Room | null>;
+    update(id: string, model: Door): Promise<Door>;
+    getById(id: string): Promise<Door | null>;
     /**************************************************************/
     /**************************** READ ****************************/
     /**************************************************************/
-    getAll(): Promise<Room[]>;
+    getAll(): Promise<Door[]>;
 }

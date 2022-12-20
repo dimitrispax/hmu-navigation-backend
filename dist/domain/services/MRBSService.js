@@ -14,10 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMRBSData = void 0;
 const axios_1 = __importDefault(require("axios"));
+const buildingControllers_1 = require("../../presenter/controllers/buildingControllers");
+const doorControllers_1 = require("../../presenter/controllers/doorControllers");
+const roomsControllers_1 = require("../../presenter/controllers/roomsControllers");
 const cliProgress = require('cli-progress');
 /***************************************/
 /**** Accessing data from MRBS API ****/
 /*************************************/
+const baseURL = `https://mrbs.hmu.gr/api`;
+const MRBS = axios_1.default.create({ baseURL });
 // In practice, there is not any calls to get ALL the floors of the building
 // so, this function makes floorIDs and structure the first
 // level of the dictionary.
@@ -36,47 +41,11 @@ const floorIDMaker = (base) => {
     }
     return floorIDObj;
 };
-const getAllBuildings = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const URI = `https://mrbs.hmu.gr/api/pg/map/buildings`;
-        const encodedURI = encodeURI(URI);
-        const response = yield axios_1.default.get(encodedURI);
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR");
-    }
-    return null;
-});
-const getAllRoomsOfFloor = (floorID) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const URI = `https://mrbs.hmu.gr/api/pg/map/floor/${floorID}`;
-        const encodedURI = encodeURI(URI);
-        const response = yield axios_1.default.get(encodedURI);
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR");
-    }
-    return null;
-});
-const getAllDoorsOfRoom = (roomID) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const URI = `https://mrbs.hmu.gr/api/pg/door/${roomID}`;
-        const encodedURI = encodeURI(URI);
-        const response = yield axios_1.default.get(encodedURI);
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR");
-    }
-    return null;
-});
 const getFloorOutline = (floorID) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const URI = `https://mrbs.hmu.gr/api/pg/map/border/${floorID}`;
+        const URI = `/pg/map/border/${floorID}`;
         const encodedURI = encodeURI(URI);
-        const response = yield axios_1.default.get(encodedURI);
+        const response = yield MRBS.get(encodedURI);
         return response.data;
     }
     catch (err) {
@@ -84,23 +53,11 @@ const getFloorOutline = (floorID) => __awaiter(void 0, void 0, void 0, function*
     }
     return null;
 });
-const getAllFloors = () => __awaiter(void 0, void 0, void 0, function* () {
+const getAllRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const URI = "https://mrbs.hmu.gr/api/pg/map/floors";
+        const URI = `/map/rooms`;
         const encodedURI = encodeURI(URI);
-        const response = yield axios_1.default.get(encodedURI);
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR");
-    }
-    return null;
-});
-const getAllDoors = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const URI = "https://mrbs.hmu.gr/api/pg/doors";
-        const encodedURI = encodeURI(URI);
-        const response = yield axios_1.default.get(encodedURI);
+        const response = yield MRBS.get(encodedURI);
         return response.data;
     }
     catch (err) {
@@ -112,15 +69,15 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     // create a new progress bar instance and use shades_classic theme
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
     // Gets all buildings of the campurs from the MRBS API.
-    const buildings = yield getAllBuildings();
-    const floors = yield getAllFloors();
-    const doors = yield getAllDoors();
-    let floorObj = [];
+    const buildings = yield (0, buildingControllers_1.getAllBuildings)();
+    const floors = yield (0, roomsControllers_1.getAllRooms)();
+    const doors = yield (0, doorControllers_1.getAllDoors)();
+    const roomsData = yield getAllRoomsData();
     let dictionary = {};
     let roomCount = 0;
     // start the progress bar with a total value of 1080(all rooms that are in MRBS) and start value of 0
     console.log("\n------====DOWNLOADING MRBS DATA====------");
-    progressBar.start(922, 0);
+    progressBar.start(1080, 0);
     /* Creating Floors */
     for (const building of buildings.features) {
         // create and store the floorID of each building
@@ -141,7 +98,7 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
                 //get the outline of each floor of a building
                 let outline = yield getFloorOutline(dictionary[building.id][floor].floorID);
                 //storing the outline of each floor
-                dictionary[building.id][floor].outline = outline;
+                // dictionary[building.id][floor].outline = outline;
                 //storing the rooms of each floor
                 dictionary[building.id][floor].rooms = roomsOfFloor;
                 //deleting floorID as a property
@@ -155,12 +112,16 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
                     let roomNumber = room.id.split(".")[2];
                     // using the room number in order to be able to access the room in the dictionary.
                     // storing outline of room(geodata).
-                    dictionary[building.id][floor][roomNumber] = { doors: {}, outline: room };
+                    dictionary[building.id][floor][roomNumber] = { doors: {}, info: {}, outline: room };
                     // storing the doors(geodata) of each room.
                     // dictionary[building.id][floor][roomNumber].doors = await getAllDoorsOfRoom(room.id);
-                    dictionary[building.id][floor][roomNumber] = doors.filter((door) => {
+                    dictionary[building.id][floor][roomNumber].doors = doors.filter((door) => {
                         let doorID = door.json_build_object.id.split(".");
                         return (JSON.stringify(doorID[0]) === JSON.stringify(building.id) && JSON.stringify(doorID[1]) === JSON.stringify(floor) && JSON.stringify(doorID[2]) === JSON.stringify(roomNumber));
+                    });
+                    dictionary[building.id][floor][roomNumber].info = roomsData.find((roomData) => {
+                        let roomDataID = roomData.sort_key.split(".");
+                        return (JSON.stringify(roomDataID[0]) === JSON.stringify(building.id) && JSON.stringify(roomDataID[1]) === JSON.stringify(floor) && JSON.stringify(roomDataID[2]) === JSON.stringify(roomNumber));
                     });
                     /* !TEST ON THE GO!
                       if (dictionary["Κ33"][0]["01"] !== undefined)

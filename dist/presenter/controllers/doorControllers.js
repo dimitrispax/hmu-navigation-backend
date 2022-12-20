@@ -12,27 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllRooms = void 0;
-const roomDAO_1 = require("../../data/dao/roomDAO");
-const roomDTO_1 = __importDefault(require("../../domain/dto/roomDTO"));
+exports.getAllDoors = void 0;
+const doorDAO_1 = require("../../data/dao/doorDAO");
+const doorDTO_1 = __importDefault(require("../../domain/dto/doorDTO"));
 const dtoMapper_1 = __importDefault(require("../../domain/utillities/dtoMapper"));
 /**************************************************************/
 /**************************** READ ****************************/
 /**************************************************************/
-const getAllRooms = () => __awaiter(void 0, void 0, void 0, function* () {
+const getAllDoors = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const roomsDAOCalls = new roomDAO_1.roomDAO(); // Calling DAO.
-        const allRooms = yield roomsDAOCalls.getAll(); // Get All Rooms from DAO.
-        const DTORooms = allRooms.map((room) => (0, dtoMapper_1.default)(room, new roomDTO_1.default())); // Transforming objects with DTO.
-        return {
-            type: "FeatureCollection",
-            features: DTORooms
-        };
+        const doorsDAOCalls = new doorDAO_1.doorDAO(); // Calling DAO.
+        const allDoors = yield doorsDAOCalls.getAll(); // Get All Doors from DAO.
+        const DTODoors = allDoors.map((door) => (0, dtoMapper_1.default)(door, new doorDTO_1.default())); // Transforming objects with DTO.
+        return DTODoors;
     }
     catch (err) {
         console.log("ERROR");
         return err;
     }
 });
-exports.getAllRooms = getAllRooms;
-//# sourceMappingURL=roomsControllers.js.map
+exports.getAllDoors = getAllDoors;
+//# sourceMappingURL=doorControllers.js.map

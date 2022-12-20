@@ -19,6 +19,8 @@ const error404_1 = require("./config/Errors/models/error404");
 /* ROUTES */
 const rooomRoutes_1 = __importDefault(require("./presenter/routes/v1/rooomRoutes"));
 const MRBSRoutes_1 = __importDefault(require("./presenter/routes/v1/MRBSRoutes"));
+const doorRoutes_1 = __importDefault(require("./presenter/routes/v1/doorRoutes"));
+const buildingRoutes_1 = __importDefault(require("./presenter/routes/v1/buildingRoutes"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 /* Allowing CORS */
@@ -27,6 +29,10 @@ app.use((0, cors_1.default)({ credentials: true }));
 app.use(express_1.default.json());
 /* ROOM ROUTES */
 app.use('/rooms', rooomRoutes_1.default);
+/* DOOR ROUTES */
+app.use('/doors', doorRoutes_1.default);
+/* BUILDING ROUTES */
+app.use('/buildings', buildingRoutes_1.default);
 /* MRBS ROUTES */
 app.use('/mrbs', MRBSRoutes_1.default);
 /* ROOT ROUTE */

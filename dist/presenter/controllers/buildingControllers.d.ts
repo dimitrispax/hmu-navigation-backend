@@ -1,4 +1,4 @@
 /**************************************************************/
 /**************************** READ ****************************/
 /**************************************************************/
-export declare const getAllRooms: () => Promise<unknown>;
+export declare const getAllBuildings: () => Promise<unknown>;

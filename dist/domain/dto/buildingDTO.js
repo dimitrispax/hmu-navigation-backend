@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class roomDTO {
+class buildingDTO {
     constructor() {
         this.type = "",
             this.id = "",
@@ -8,5 +8,5 @@ class roomDTO {
             this.properties = JSON;
     }
 }
-exports.default = roomDTO;
-//# sourceMappingURL=roomDTO.js.map
+exports.default = buildingDTO;
+//# sourceMappingURL=buildingDTO.js.map

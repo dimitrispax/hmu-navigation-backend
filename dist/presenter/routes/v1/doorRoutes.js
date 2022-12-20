@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const roomsControllers_1 = require("../../controllers/roomsControllers");
+const doorControllers_1 = require("../../controllers/doorControllers");
 const router = express_1.default.Router();
 /* INDEX ROUTE */
 router.get('/', (req, res) => {
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 /**************************************************************/
 /**************************** GET *****************************/
 /**************************************************************/
-/* GET ALL ROOMS */
-router.get('/all', roomsControllers_1.getAllRooms);
+/* GET ALL DOORS */
+router.get('/all', doorControllers_1.getAllDoors);
 exports.default = router;
-//# sourceMappingURL=rooomRoutes.js.map
+//# sourceMappingURL=doorRoutes.js.map

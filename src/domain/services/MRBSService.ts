@@ -9,7 +9,9 @@ const cliProgress = require('cli-progress');
 /**** Accessing data from MRBS API ****/
 /*************************************/
 
-
+/* Constructing a new universal custom axios call */
+const baseURL = `https://mrbs.hmu.gr/api`;
+const MRBS = axios.create({ baseURL });
 
 // In practice, there is not any calls to get ALL the floors of the building
 // so, this function makes floorIDs and structure the first
@@ -33,11 +35,12 @@ const floorIDMaker = (base: string) => {
     return floorIDObj;
 }
 
+/* Gets each outline of the floor that the user requests.  */
 const getFloorOutline = async (floorID: string) => {
     try {
-        const URI = `https://mrbs.hmu.gr/api/pg/map/border/${floorID}`;
+        const URI = `/pg/map/border/${floorID}`;
         const encodedURI = encodeURI(URI);
-        const response = await axios.get(encodedURI);
+        const response = await MRBS.get(encodedURI);
 
         return response.data;
     }
@@ -47,11 +50,12 @@ const getFloorOutline = async (floorID: string) => {
     return null;
 }
 
+/* Gets info for each room from MRBS API. */
 const getAllRoomsData = async () => {
     try {
-        const URI = "https://mrbs.hmu.gr/api/map/rooms";
+        const URI = `/map/rooms`;
         const encodedURI = encodeURI(URI);
-        const response = await axios.get(encodedURI);
+        const response = await MRBS.get(encodedURI);
 
         return response.data;
     }
@@ -60,8 +64,6 @@ const getAllRoomsData = async () => {
     }
     return null;
 }
-
-
 
 
 
@@ -71,10 +73,11 @@ export const getMRBSData: () => Promise<Object> = async () => {
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 
-    // Gets all buildings of the campurs from the MRBS API.
+    // Gets all rooms, doors and buildings of the campus from postgres(QGIS).
     const buildings: any = await getAllBuildings();
     const floors: any = await getAllRooms();
     const doors: any = await getAllDoors();
+    // Gets all buildings of the campus from the MRBS API.
     const roomsData = await getAllRoomsData();
 
 
@@ -84,7 +87,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
     // start the progress bar with a total value of 1080(all rooms that are in MRBS) and start value of 0
     console.log("\n------====DOWNLOADING MRBS DATA====------");
     progressBar.start(1080, 0);
-
 
 
     /* Creating Floors */
@@ -170,10 +172,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
     }
     // stop the progress bar
     progressBar.stop();
-
-
-
-    console.log(dictionary['Κ14'][0]['23'].info['description'])
 
 
     // return all data of MRBS to user.
