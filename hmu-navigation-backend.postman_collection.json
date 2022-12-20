@@ -34,6 +34,28 @@
 					"response": []
 				},
 				{
+					"name": "allRooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mrbs.hmu.gr/api/map/rooms",
+							"protocol": "https",
+							"host": [
+								"mrbs",
+								"hmu",
+								"gr"
+							],
+							"path": [
+								"api",
+								"map",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "floorByID",
 					"request": {
 						"method": "GET",
@@ -156,61 +178,8 @@
 			]
 		},
 		{
-			"name": "Localhost",
+			"name": "localhost",
 			"item": [
-				{
-					"name": "Rooms that fit a number of people, that have a camera and a projector",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/rooms/have-capacity-of/0/have-camera/have-projector",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"rooms",
-								"have-capacity-of",
-								"0",
-								"have-camera",
-								"have-projector"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateRoom",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"description\": \"NILE LAB - Εργαστήριο NILE\",\n  \"usageId\": 2,\n  \"manager\": \"Vidakis Nikolaos\",\n  \"computer\": 1,\n  \"camera\": 0,\n  \"projector\": 1,\n  \"capacity\": 15\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/rooms/update/Κ14.0.24",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"rooms",
-								"update",
-								"Κ14.0.24"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "getAllMRBSData",
 					"request": {
@@ -226,6 +195,46 @@
 							"path": [
 								"mrbs",
 								"api",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllConnections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/connections/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"connections",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPoints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/points/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"points",
 								"all"
 							]
 						}

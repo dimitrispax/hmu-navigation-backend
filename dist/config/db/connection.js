@@ -39,7 +39,6 @@ else {
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_DB
     };
-    console.log("config: ", config);
 }
 exports.pool = new pg_1.Pool(config);
 //# sourceMappingURL=connection.js.map

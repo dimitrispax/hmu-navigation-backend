@@ -22,7 +22,7 @@ const dtoMapper_1 = __importDefault(require("../../domain/utillities/dtoMapper")
 const getAllBuildings = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const buildingsDAOCalls = new buildingDAO_1.buildingDAO(); // Calling DAO.
-        const allBuildings = yield buildingsDAOCalls.getAll(); // Get All Doors from DAO.
+        const allBuildings = yield buildingsDAOCalls.getAll(); // Get All Buildings from DAO.
         const DTOBuildings = allBuildings.map((building) => (0, dtoMapper_1.default)(building, new buildingDTO_1.default())); // Transforming objects with DTO.
         return {
             type: "FeatureCollection",

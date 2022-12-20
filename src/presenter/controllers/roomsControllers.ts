@@ -20,10 +20,11 @@ export const getAllRooms = async () => {
         return {
             type: "FeatureCollection",
             features: DTORooms
-        }
+        };
+
     } catch (err) {
         console.log("ERROR")
-        return err;
+        return err
     }
 }
 

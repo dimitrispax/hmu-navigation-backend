@@ -21,7 +21,7 @@ export const getAllDoors = async () => {
 
     } catch (err) {
         console.log("ERROR")
-        return err;
+        return err
     }
 }
 

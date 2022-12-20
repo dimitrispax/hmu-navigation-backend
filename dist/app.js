@@ -17,22 +17,19 @@ const cors_1 = __importDefault(require("cors"));
 const httpErrorHandlerMiddleware_1 = require("./middlewares/httpErrorHandlerMiddleware");
 const error404_1 = require("./config/Errors/models/error404");
 /* ROUTES */
-const rooomRoutes_1 = __importDefault(require("./presenter/routes/v1/rooomRoutes"));
 const MRBSRoutes_1 = __importDefault(require("./presenter/routes/v1/MRBSRoutes"));
-const doorRoutes_1 = __importDefault(require("./presenter/routes/v1/doorRoutes"));
-const buildingRoutes_1 = __importDefault(require("./presenter/routes/v1/buildingRoutes"));
+const pointRoutes_1 = __importDefault(require("./presenter/routes/v1/pointRoutes"));
+const connectionRoutes_1 = __importDefault(require("./presenter/routes/v1/connectionRoutes"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 /* Allowing CORS */
 app.use((0, cors_1.default)({ credentials: true }));
 /* Parsing JSON */
 app.use(express_1.default.json());
-/* ROOM ROUTES */
-app.use('/rooms', rooomRoutes_1.default);
-/* DOOR ROUTES */
-app.use('/doors', doorRoutes_1.default);
-/* BUILDING ROUTES */
-app.use('/buildings', buildingRoutes_1.default);
+/* CONNECTION ROUTES */
+app.use('/connections', connectionRoutes_1.default);
+/* POINT ROUTES */
+app.use('/points', pointRoutes_1.default);
 /* MRBS ROUTES */
 app.use('/mrbs', MRBSRoutes_1.default);
 /* ROOT ROUTE */

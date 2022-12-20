@@ -77,6 +77,9 @@ export const getMRBSData: () => Promise<Object> = async () => {
     const buildings: any = await getAllBuildings();
     const floors: any = await getAllRooms();
     const doors: any = await getAllDoors();
+
+
+
     // Gets all buildings of the campus from the MRBS API.
     const roomsData = await getAllRoomsData();
 
