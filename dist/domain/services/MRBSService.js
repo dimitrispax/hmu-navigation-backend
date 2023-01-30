@@ -16,6 +16,7 @@ exports.getMRBSData = void 0;
 const axios_1 = __importDefault(require("axios"));
 const buildingControllers_1 = require("../../presenter/controllers/buildingControllers");
 const doorControllers_1 = require("../../presenter/controllers/doorControllers");
+const poiControllers_1 = require("../../presenter/controllers/poiControllers");
 const roomsControllers_1 = require("../../presenter/controllers/roomsControllers");
 const cliProgress = require('cli-progress');
 /***************************************/
@@ -71,10 +72,12 @@ const getAllRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
 const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     // create a new progress bar instance and use shades_classic theme
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
-    // Gets all rooms, doors and buildings of the campus from postgres(QGIS).
+    // Gets all rooms, doors and buildings as well as pois(points that are not rooms) of the campus from postgres(QGIS).
     const buildings = yield (0, buildingControllers_1.getAllBuildings)();
     const floors = yield (0, roomsControllers_1.getAllRooms)();
     const doors = yield (0, doorControllers_1.getAllDoors)();
+    const pois = yield (0, poiControllers_1.getAllPois)();
+    console.log(pois);
     // Gets all buildings of the campus from the MRBS API.
     const roomsData = yield getAllRoomsData();
     let dictionary = {};
@@ -87,7 +90,8 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
         // create and store the floorID of each building
         dictionary[building.id] = floorIDMaker(building.id);
         // setting all rooms info
-        dictionary['roomsInfo'] = roomsData;
+        // dictionary['roomsInfo'] = roomsData;
+        dictionary['roomsInfo'] = roomsData.concat(pois);
         /* Creating data of each floor */
         for (const floor of Object.keys(dictionary[building.id])) {
             // get the rooms of each floor of a building

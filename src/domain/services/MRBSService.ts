@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getAllBuildings } from '../../presenter/controllers/buildingControllers';
 import { getAllDoors } from '../../presenter/controllers/doorControllers';
+import { getAllPois } from '../../presenter/controllers/poiControllers';
 import { getAllRooms } from '../../presenter/controllers/roomsControllers';
 
 const cliProgress = require('cli-progress');
@@ -67,18 +68,18 @@ const getAllRoomsData = async () => {
 
 
 
+
 export const getMRBSData: () => Promise<Object> = async () => {
 
     // create a new progress bar instance and use shades_classic theme
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 
-    // Gets all rooms, doors and buildings of the campus from postgres(QGIS).
+    // Gets all rooms, doors and buildings as well as pois(points that are not rooms) of the campus from postgres(QGIS).
     const buildings: any = await getAllBuildings();
     const floors: any = await getAllRooms();
     const doors: any = await getAllDoors();
-
-
+    const pois: any = await getAllPois();
 
     // Gets all buildings of the campus from the MRBS API.
     const roomsData = await getAllRoomsData();
@@ -97,8 +98,8 @@ export const getMRBSData: () => Promise<Object> = async () => {
 
         // create and store the floorID of each building
         dictionary[building.id] = floorIDMaker(building.id);
-        // setting all rooms info
-        dictionary['roomsInfo'] = roomsData;
+        // setting all rooms and points of interest info(in order to be seachable)
+        dictionary['roomsInfo'] = roomsData.concat(pois);
 
         /* Creating data of each floor */
         for (const floor of Object.keys(dictionary[building.id])) {
