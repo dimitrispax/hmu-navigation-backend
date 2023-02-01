@@ -82,7 +82,7 @@ export const getMRBSData: () => Promise<Object> = async () => {
     const pois: any = await getAllPois();
 
     // Gets all buildings of the campus from the MRBS API.
-    const roomsData = await getAllRoomsData();
+    let roomsData = await getAllRoomsData();
 
 
     let dictionary: any = {};
@@ -98,6 +98,18 @@ export const getMRBSData: () => Promise<Object> = async () => {
 
         // create and store the floorID of each building
         dictionary[building.id] = floorIDMaker(building.id);
+
+        // these rooms have not doors so they must be access from path with nodes.
+        roomsData.map(((el: any) => {
+            if (el.sort_key.includes('Κ28')) {
+                el.sort_key = '141'
+            }
+            if (el.sort_key.includes('Κ23')) {
+                el.sort_key = '185'
+            }
+        }));
+
+
         // setting all rooms and points of interest info(in order to be seachable)
         dictionary['roomsInfo'] = roomsData.concat(pois);
 
