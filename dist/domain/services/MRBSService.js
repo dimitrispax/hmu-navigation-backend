@@ -77,9 +77,8 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     const floors = yield (0, roomsControllers_1.getAllRooms)();
     const doors = yield (0, doorControllers_1.getAllDoors)();
     const pois = yield (0, poiControllers_1.getAllPois)();
-    console.log(pois);
     // Gets all buildings of the campus from the MRBS API.
-    const roomsData = yield getAllRoomsData();
+    let roomsData = yield getAllRoomsData();
     let dictionary = {};
     let roomCount = 0;
     // start the progress bar with a total value of 1080(all rooms that are in MRBS) and start value of 0
@@ -89,8 +88,16 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     for (const building of buildings.features) {
         // create and store the floorID of each building
         dictionary[building.id] = floorIDMaker(building.id);
-        // setting all rooms info
-        // dictionary['roomsInfo'] = roomsData;
+        // these rooms have not doors so they must be access from path with nodes.
+        roomsData.map(((el) => {
+            if (el.sort_key.includes('Κ28')) {
+                el.sort_key = '141';
+            }
+            if (el.sort_key.includes('Κ23')) {
+                el.sort_key = '185';
+            }
+        }));
+        // setting all rooms and points of interest info(in order to be seachable)
         dictionary['roomsInfo'] = roomsData.concat(pois);
         /* Creating data of each floor */
         for (const floor of Object.keys(dictionary[building.id])) {
