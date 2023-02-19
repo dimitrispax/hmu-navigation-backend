@@ -4,5 +4,7 @@ export declare class Point {
     longitude: Number;
     geometry: Number;
     floor_id: string;
-    constructor(id: string, latitude: Number, longitude: Number, geometry: Number, floor_id: string);
+    iconType: string;
+    isEntrance: boolean;
+    constructor(id: string, latitude: Number, longitude: Number, geometry: Number, floor_id: string, iconType: string, isEntrance: boolean);
 }

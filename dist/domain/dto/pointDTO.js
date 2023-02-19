@@ -6,6 +6,8 @@ class PointDTO {
             this.latitude = 0;
         this.longitude = 0;
         this.floor_id = '';
+        this.iconType = '';
+        this.isEntrance = false;
     }
 }
 exports.default = PointDTO;

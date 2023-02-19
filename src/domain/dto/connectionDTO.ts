@@ -7,7 +7,7 @@ export default class ConnectionDTO {
     destination_point: string
     destination_point_lat: number
     destination_point_lon: number
-
+    is_edge_disabled_accessible: boolean
 
     constructor() {
         this.distance = 0
@@ -17,6 +17,7 @@ export default class ConnectionDTO {
         this.destination_point = ''
         this.destination_point_lat = 0
         this.destination_point_lon = 0
+        this.is_edge_disabled_accessible = false
     }
 }
 

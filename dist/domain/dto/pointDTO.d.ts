@@ -3,5 +3,7 @@ export default class PointDTO {
     latitude: Number;
     longitude: Number;
     floor_id: string;
+    iconType: string;
+    isEntrance: boolean;
     constructor();
 }

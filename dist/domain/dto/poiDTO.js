@@ -10,7 +10,8 @@ class PointDTO {
             this.room_admin_mail = '',
             this.room_type = '',
             this.projector = 0,
-            this.camera = 0;
+            this.camera = 0,
+            this.is_reservable = true;
     }
 }
 exports.default = PointDTO;

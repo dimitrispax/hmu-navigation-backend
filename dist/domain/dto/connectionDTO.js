@@ -9,6 +9,7 @@ class ConnectionDTO {
         this.destination_point = '';
         this.destination_point_lat = 0;
         this.destination_point_lon = 0;
+        this.is_edge_disabled_accessible = false;
     }
 }
 exports.default = ConnectionDTO;

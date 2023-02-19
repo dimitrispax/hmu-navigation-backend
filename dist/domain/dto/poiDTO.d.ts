@@ -8,5 +8,6 @@ export default class PointDTO {
     room_type: string;
     projector: Number;
     camera: Number;
+    is_reservable: Boolean;
     constructor();
 }
