@@ -7,7 +7,7 @@ class PointDTO {
         this.longitude = 0;
         this.floor_id = '';
         this.iconType = '';
-        this.isEntrance = false;
+        this.is_entrance = false;
     }
 }
 exports.default = PointDTO;

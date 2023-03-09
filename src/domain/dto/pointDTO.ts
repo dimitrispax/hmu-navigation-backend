@@ -5,7 +5,7 @@ export default class PointDTO {
     longitude: Number
     floor_id: string
     iconType: string
-    isEntrance: boolean
+    is_entrance: boolean
 
     constructor() {
         this.id = '',
@@ -13,7 +13,7 @@ export default class PointDTO {
         this.longitude = 0
         this.floor_id = ''
         this.iconType = ''
-        this.isEntrance = false
+        this.is_entrance = false
     }
 }
 

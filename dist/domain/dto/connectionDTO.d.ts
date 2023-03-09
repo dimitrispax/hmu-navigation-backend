@@ -6,6 +6,7 @@ export default class ConnectionDTO {
     destination_point: string;
     destination_point_lat: number;
     destination_point_lon: number;
+    is_destination_point_entrace: boolean;
     is_edge_disabled_accessible: boolean;
     constructor();
 }

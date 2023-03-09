@@ -4,6 +4,6 @@ export default class PointDTO {
     longitude: Number;
     floor_id: string;
     iconType: string;
-    isEntrance: boolean;
+    is_entrance: boolean;
     constructor();
 }

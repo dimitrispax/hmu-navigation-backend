@@ -39,7 +39,7 @@ class connectionDAO {
         return __awaiter(this, void 0, void 0, function* () {
             let response;
             try {
-                response = yield connection_1.pool.query('SELECT ST_DistanceSphere(a.geopoint, b.geopoint) as Distance, is_edge_disabled_accessible ,a.id as starting_point, a.latitude as starting_point_lat, a.longitude as starting_point_lon,b.id as destination_point,b.latitude as destination_point_lat, b.longitude as destination_point_lon FROM point a, point b, connection WHERE a.id = starting_point AND b.id = destination_point');
+                response = yield connection_1.pool.query('SELECT ST_DistanceSphere(a.geopoint, b.geopoint) as Distance, is_edge_disabled_accessible ,a.id as starting_point, a.latitude as starting_point_lat, a.longitude as starting_point_lon,b.id as destination_point,b.latitude as destination_point_lat, b.longitude as destination_point_lon, b.is_entrance as is_destination_point_entrace FROM point a, point b, connection WHERE a.id = starting_point AND b.id = destination_point');
                 return response.rows;
             }
             catch (error) {

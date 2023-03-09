@@ -9,6 +9,7 @@ class ConnectionDTO {
         this.destination_point = '';
         this.destination_point_lat = 0;
         this.destination_point_lon = 0;
+        this.is_destination_point_entrace = false;
         this.is_edge_disabled_accessible = false;
     }
 }
