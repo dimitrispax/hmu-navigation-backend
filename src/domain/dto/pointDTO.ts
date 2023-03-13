@@ -4,7 +4,7 @@ export default class PointDTO {
     latitude: Number
     longitude: Number
     floor_id: string
-    iconType: string
+    icon_type: string
     is_entrance: boolean
 
     constructor() {
@@ -12,7 +12,7 @@ export default class PointDTO {
         this.latitude = 0
         this.longitude = 0
         this.floor_id = ''
-        this.iconType = ''
+        this.icon_type = ''
         this.is_entrance = false
     }
 }
