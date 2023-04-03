@@ -50,8 +50,7 @@ app.use((req: Request, res: Response, next: NextFunction) => { next(new Error404
 /* ERROR HANDLER */
 app.use(httpErrorHandlerMiddleware);
 
-
 /* SERVER START */
 app.listen(port, () => {
-  return console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });

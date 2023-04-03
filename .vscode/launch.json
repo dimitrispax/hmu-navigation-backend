@@ -5,16 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Nodemon",
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
+            "runtimeExecutable": "npm",
+            // run start:inspect script set in package.json
+            // it is like vs code running npm run start:inspect
+            "runtimeArgs": [
+              "run-script",
+              "start:inspect"
             ],
-            "program": "${workspaceFolder}\\src\\",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
-        }
+            "sourceMaps": true,
+          },
     ]
 }
