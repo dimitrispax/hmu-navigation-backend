@@ -8,6 +8,7 @@ import { Error404 } from './config/Errors/models/error404';
 import MRBSRoutes from "./presenter/routes/v1/MRBSRoutes";
 import pointRoutes from './presenter/routes/v1/pointRoutes';
 import connectionRoutes from './presenter/routes/v1/connectionRoutes';
+import roomDataRoutes from './presenter/routes/v1/roomDataRoutes';
 
 
 
@@ -34,6 +35,8 @@ app.use('/api/points', pointRoutes)
 /* MRBS ROUTES */
 app.use('/api/mrbs', MRBSRoutes)
 
+/* ROOM DATA ROUTES */
+app.use('/api/rooms-data', roomDataRoutes)
 
 /* ROOT ROUTE */
 app.get('/', async (req, res) => {

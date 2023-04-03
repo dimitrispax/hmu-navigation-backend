@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getAllBuildings } from '../../presenter/controllers/buildingControllers';
 import { getAllDoors } from '../../presenter/controllers/doorControllers';
-import { getAllPois } from '../../presenter/controllers/poiControllers';
 import { getAllRooms } from '../../presenter/controllers/roomsControllers';
 
 const cliProgress = require('cli-progress');
@@ -51,20 +50,7 @@ const getFloorOutline = async (floorID: string) => {
     return null;
 }
 
-/* Gets info for each room from MRBS API. */
-const getAllRoomsData = async () => {
-    try {
-        const URI = `/map/rooms`;
-        const encodedURI = encodeURI(URI);
-        const response = await MRBS.get(encodedURI);
 
-        return response.data;
-    }
-    catch (err) {
-        console.log("ERROR")
-    }
-    return null;
-}
 
 
 
@@ -79,11 +65,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
     const buildings: any = await getAllBuildings();
     const floors: any = await getAllRooms();
     const doors: any = await getAllDoors();
-    const pois: any = await getAllPois();
-
-    // Gets all buildings of the campus from the MRBS API.
-    let roomsData = await getAllRoomsData();
-
 
     let dictionary: any = {};
     let roomCount = 0;
@@ -98,20 +79,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
 
         // create and store the floorID of each building
         dictionary[building.id] = floorIDMaker(building.id);
-
-        // these rooms have not doors so they must be access from path with nodes.
-        roomsData.map(((el: any) => {
-            if (el.sort_key.includes('Κ28')) {
-                el.sort_key = '141'
-            }
-            if (el.sort_key.includes('Κ23')) {
-                el.sort_key = '185'
-            }
-        }));
-
-
-        // setting all rooms and points of interest info(in order to be seachable)
-        dictionary['roomsInfo'] = roomsData.concat(pois);
 
         /* Creating data of each floor */
         for (const floor of Object.keys(dictionary[building.id])) {

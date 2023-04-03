@@ -59,6 +59,24 @@ const getFloorOutline = (floorID) => __awaiter(void 0, void 0, void 0, function*
 /* Gets info for each room from MRBS API. */
 const getAllRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // const URI = `/map/rooms`;
+        const URI = `/map-info/room/list/0/10000`;
+        const encodedURI = encodeURI(URI);
+        const response = yield MRBS.get(encodedURI);
+        const mappedResponse = response.data.map((res) => {
+            const description = `${res.id}${res.description ? " - " + res.description : ""}`;
+            return ({ id: res.id, description, sort_key: res.id });
+        });
+        return mappedResponse;
+    }
+    catch (err) {
+        console.log("ERROR");
+    }
+    return null;
+});
+/* Gets info for each room that can be reserved from MRBS API. */
+const getAllReservableRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
         const URI = `/map/rooms`;
         const encodedURI = encodeURI(URI);
         const response = yield MRBS.get(encodedURI);
@@ -69,6 +87,15 @@ const getAllRoomsData = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     return null;
 });
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    let roomsData = yield getAllRoomsData();
+    let roomsReserveData = yield getAllReservableRoomsData();
+    let found = roomsReserveData.find((val, index) => {
+        console.log('index', index); // Stops at 0
+        return roomsData.includes(val);
+    });
+    console.log(found);
+});
 const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     // create a new progress bar instance and use shades_classic theme
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
@@ -77,8 +104,9 @@ const getMRBSData = () => __awaiter(void 0, void 0, void 0, function* () {
     const floors = yield (0, roomsControllers_1.getAllRooms)();
     const doors = yield (0, doorControllers_1.getAllDoors)();
     const pois = yield (0, poiControllers_1.getAllPois)();
-    // Gets all buildings of the campus from the MRBS API.
+    // // Gets all buildings of the campus from the MRBS API.
     let roomsData = yield getAllRoomsData();
+    main();
     let dictionary = {};
     let roomCount = 0;
     // start the progress bar with a total value of 1080(all rooms that are in MRBS) and start value of 0
