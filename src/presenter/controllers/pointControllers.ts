@@ -21,7 +21,6 @@ export const getAllPoints = async (req: Request, res: Response, next: NextFuncti
         res.status(200).json(DTOPoints);
 
     } catch (err) {
-        console.log("ERROR")
         return next(err)
     }
 }

@@ -45,7 +45,6 @@ const getFloorOutline = async (floorID: string) => {
         return response.data;
     }
     catch (err) {
-        console.log("ERROR")
     }
     return null;
 }
@@ -70,7 +69,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
     let roomCount = 0;
 
     // start the progress bar with a total value of 1080(all rooms that are in MRBS) and start value of 0
-    console.log("\n------====DOWNLOADING MRBS DATA====------");
     progressBar.start(1080, 0);
 
 
@@ -86,11 +84,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
             // get the rooms of each floor of a building
             let roomsOfFloor = floors.features.filter((room: any) => {
                 let roomID = room.id.split(".")
-                if (floor === "-1") {
-                    console.log("roomID[1]: ", roomID[1]);
-                    console.log("floor: ", floor);
-                }
-
                 return (JSON.stringify(roomID[0]) === JSON.stringify(building.id) && JSON.stringify(roomID[1]) === JSON.stringify(floor))
             });
 
@@ -127,11 +120,6 @@ export const getMRBSData: () => Promise<Object> = async () => {
                         let doorID = door.json_build_object.id.split(".")
                         return (JSON.stringify(doorID[0]) === JSON.stringify(building.id) && JSON.stringify(doorID[1]) === JSON.stringify(floor) && JSON.stringify(doorID[2]) === JSON.stringify(roomNumber))
                     });
-                    /* !TEST ON THE GO! 
-                      if (dictionary["Κ33"][0]["01"] !== undefined)
-                        console.log("TEST:", dictionary["Κ33"][0]["01"].doors);
-                    */
-
                     // count the number of rooms(922 calls)
                     roomCount += 1;
                     // updating progress bar with the value of roomCount
@@ -157,22 +145,3 @@ export const getMRBSData: () => Promise<Object> = async () => {
     return dictionary;
 
 }
-
-
-
-
-/*
-
-EXAMPLE: if the we do --> console.log(dictionary["Κ14"][0]["24"]);
-         the system will return:
-{
-  doors: [ { json_build_object: [Object] }, { json_build_object: [Object] } ],
-  outline: {
-    type: 'Feature',
-    id: 'Κ14.0.24',
-    geometry: { type: 'MultiPolygon', coordinates: [Array] },
-    properties: { feat_type: 'line', feat_area: 66.9589465107268 }
-  }
-}
-
-*/

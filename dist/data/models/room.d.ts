@@ -1,4 +1,0 @@
-export declare class Room {
-    json_build_object?: JSON;
-    constructor(json_build_object: JSON);
-}

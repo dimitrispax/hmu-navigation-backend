@@ -14,7 +14,6 @@ export const getAllRoomData = async (req: Request, res: Response, next: NextFunc
         res.status(200).send(roomData);
     }
     catch (err) {
-        console.log("ERROR")
         return next(err)
     }
 

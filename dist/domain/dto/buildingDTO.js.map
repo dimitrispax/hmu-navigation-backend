@@ -1,1 +1,0 @@
-{"version":3,"file":"buildingDTO.js","sourceRoot":"","sources":["../../../src/domain/dto/buildingDTO.ts"],"names":[],"mappings":";;AACA,MAAqB,WAAW;IAO5B;QACI,IAAI,CAAC,IAAI,GAAG,EAAE;YACd,IAAI,CAAC,EAAE,GAAG,EAAE;YACZ,IAAI,CAAC,QAAQ,GAAG,IAAI;YACpB,IAAI,CAAC,UAAU,GAAG,IAAI,CAAA;IAC1B,CAAC;CACJ;AAbD,8BAaC"}

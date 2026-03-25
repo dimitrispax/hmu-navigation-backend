@@ -23,7 +23,6 @@ export const getAllBuildings = async () => {
         };
 
     } catch (err) {
-        console.log("ERROR")
         return err
     }
 }

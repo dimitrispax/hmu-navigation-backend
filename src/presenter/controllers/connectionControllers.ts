@@ -21,7 +21,6 @@ export const getAllConnections = async (req: Request, res: Response, next: NextF
         res.status(200).json(DTOConnections);
 
     } catch (err) {
-        console.log("ERROR")
         return next(err)
     }
 }

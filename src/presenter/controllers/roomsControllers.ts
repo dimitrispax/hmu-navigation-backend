@@ -23,7 +23,6 @@ export const getAllRooms = async () => {
         };
 
     } catch (err) {
-        console.log("ERROR")
         return err
     }
 }

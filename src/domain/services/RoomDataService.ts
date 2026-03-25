@@ -27,7 +27,6 @@ const getAllRoomsData = async () => {
         return mappedResponse;
     }
     catch (err) {
-        console.log("ERROR")
     }
     return null;
 }
@@ -42,7 +41,6 @@ const getAllReservableRoomsData = async () => {
         return response.data;
     }
     catch (err) {
-        console.log("ERROR")
     }
     return null;
 }

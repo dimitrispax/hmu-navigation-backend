@@ -1,20 +1,7 @@
-## HMU NAVIGATION BACKEND
+# HMU Navigation API
 
-First of all, make a .env file that contains the following:
-```sh
-DATABASE_HOST="..."
-DATABASE_USER="..."
-DATABASE_PASSWORD="..."
-DATABASE_DB="..."
-```
-and at db/connection.ts change the port also.
+Backend API for the HMU campus navigation app, serving geospatial data and live class schedules.
 
-Then in order to run, type these commands:
-```sh
-npm install
-npx tsc && npm run start
-```
+Built with Express.js, TypeScript, PostgreSQL, and PostGIS.
 
-
-
-
+> Thesis project at Hellenic Mediterranean University (2023–2024). Archived — no longer actively maintained.

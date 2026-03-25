@@ -21,7 +21,6 @@ export const getAllPois = async () => {
         return DTOPoi;
 
     } catch (err) {
-        console.log("ERROR")
         return err
     }
 }

@@ -1,7 +1,0 @@
-export default class roomDTO {
-    type: string;
-    id: string;
-    geometry: JSON;
-    properties: JSON;
-    constructor();
-}

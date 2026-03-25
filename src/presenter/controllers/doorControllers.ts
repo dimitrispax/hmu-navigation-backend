@@ -20,7 +20,6 @@ export const getAllDoors = async () => {
         return DTODoors;
 
     } catch (err) {
-        console.log("ERROR")
         return err
     }
 }
